@@ -1,3 +1,7 @@
+import 'dart:ffi';
+
+import 'package:exchange_app/src/utils/extentions.dart';
+
 class Exchange {
   String title;
   String code;
@@ -17,22 +21,25 @@ class Exchange {
 
   factory Exchange.fromMap(Map<String, dynamic> map) {
     return Exchange(
-      title: map['title'] as String,
-      code: map['code'] as String,
-      buy: map['buy'] != null ? (map['buy'] as num).toDouble() : null,
-      sell: map['sell'] != null ? (map['sell'] as num).toDouble() : null,
-      price: (map['price'] as num).toDouble(),
-      date: DateTime.parse(map['date'] as String),
-    );
+        title: map['title'] as String,
+        code: map['code'] as String,
+        buy: map['nbu_buy_price'] != null
+            ? double.parse(map["nbu_buy_price"])
+            : null,
+        sell: map['nbu_cell_price'] != null
+            ? double.parse(map["nbu_cell_price"])
+            : null,
+        price: double.parse(map["cb_price"]),
+        date: map['date'].toString().toCustomDateTime()!);
   }
 
   Map<String, dynamic> toMap() {
     return {
       'title': title,
       'code': code,
-      'price': price,
-      'buy': buy,
-      'sell': sell,
+      'cb_price': price,
+      'nbu_buy_price': buy,
+      'nbu_cell_price': sell,
       'date': date.toIso8601String(),
     };
   }
