@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:exchange_app/src/utils/extentions.dart';
 
 class Exchange {
