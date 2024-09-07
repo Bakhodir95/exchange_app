@@ -3,7 +3,7 @@ extension StringToDateTime on String {
     try {
       return DateTime.parse(this);
     } catch (e) {
-      return null; // Return null if the string can't be parsed
+      return null;
     }
   }
 
@@ -31,7 +31,7 @@ extension StringToDateTime on String {
 
       return DateTime(year, month, day, hour, minute, second);
     } catch (e) {
-      return null; // Return null if the string can't be parsed
+      return null; 
     }
   }
 }
