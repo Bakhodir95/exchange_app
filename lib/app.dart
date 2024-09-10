@@ -7,8 +7,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ScreenUtilInit(
-      designSize: Size(360, 480),
+    return ScreenUtilInit(
+      designSize: const Size(360, 480),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: ExchangeRateScreen(),
