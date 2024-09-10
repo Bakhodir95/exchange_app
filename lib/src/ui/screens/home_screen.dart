@@ -35,7 +35,7 @@ class ExchangeRateScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Container(
-                          padding: EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(20),
                           width: double.infinity,
                           height: MediaQuery.of(context).size.height / 4,
                           decoration: BoxDecoration(
@@ -54,16 +54,15 @@ class ExchangeRateScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(rate.title.toString()),
-                                  Text(" CB ${rate.price.toString()} so`m"),
+                                  Text(
+                                      "${rate.title} = CB ${rate.price.toString()} sum"),
                                 ],
                               ),
-                              Text("Sell ${rate.sell.toString()}"),
-                              Text("Buy ${rate.buy.toString()}"),
-                              Text("Buy ${rate.date.toString()}")
+                              Text("Sell ${rate.sell ?? "Unknown"}"),
+                              Text("Buy ${rate.buy ?? "Unknown "}"),
+                              Text("Created at ${rate.date}")
                             ],
                           ),
                         ),

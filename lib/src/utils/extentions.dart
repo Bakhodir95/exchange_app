@@ -9,7 +9,7 @@ extension StringToDateTime on String {
 
   DateTime? toCustomDateTime() {
     try {
-      final parts = this.split(' ');
+      final parts = split(' ');
       if (parts.length < 2) return null;
 
       final dateParts = parts[0].split('/');

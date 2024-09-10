@@ -43,9 +43,3 @@ class Exchange {
   }
 }
 
-  // "title": "UAE Dirham",
-  //   "code": "AED",
-  //   "cb_price": "3459.92",
-  //   "nbu_buy_price": null,
-  //   "nbu_cell_price": null,
-  //   "date": "09/07/2024 11:00:01 am"
