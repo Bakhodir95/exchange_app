@@ -4,7 +4,7 @@ import 'package:exchange_app/src/blocs/exchange/exchange_state.dart';
 import 'package:exchange_app/src/repositories/exchange_repositories.dart';
 import 'package:exchange_app/src/services/exchange_api_service.dart';
 import 'package:exchange_app/src/ui/screens/settings_screen.dart';
-import 'package:exchange_app/src/ui/widgets/home_widget.dart';
+import 'package:exchange_app/src/ui/widgets/home_container_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

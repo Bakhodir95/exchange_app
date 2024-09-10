@@ -1,3 +1,4 @@
+import 'package:exchange_app/app.dart';
 import 'package:exchange_app/src/models/exchange.dart';
 import 'package:flutter/material.dart';
 
@@ -51,10 +52,16 @@ class HomeWidget extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Image.asset(
-              flagsMap[exchange.code] ?? 'assets/images/default.png',
-              height: 50,
-              width: 100,
+            Container(
+              clipBehavior: Clip.hardEdge,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadiusDirectional.circular(15)),
+              child: Image.asset(
+                flagsMap[exchange.code] ?? 'assets/images/default.png',
+                fit: BoxFit.cover,
+                height: 75,
+                width: 100,
+              ),
             ),
             const SizedBox(width: 20),
             Expanded(
@@ -63,10 +70,10 @@ class HomeWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                      "${exchange.title} = CB ${exchange.price.toString()} sum"),
+                      "${exchange.title} =  CB ${exchange.price.toString()} sum"),
                   Text("Sell: ${exchange.sell ?? "Unknown"}"),
                   Text("Buy: ${exchange.buy ?? "Unknown"}"),
-                  Text("Created at: ${exchange.date}"),
+                  Text("Updated at: ${exchange.date}"),
                 ],
               ),
             ),
