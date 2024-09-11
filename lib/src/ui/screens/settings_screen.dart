@@ -70,11 +70,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
           ListTile(
-            onTap: () {
-              Share.share(
-                'Check out this cool app!',
-                subject: 'Sharing from my Echange Rate App',
-              );
+            onTap: () async {
+              await Share.share('Share my App vith Social Networking!');
             },
             leading: const Icon(Icons.share),
             title: const Text("Share with friends"),

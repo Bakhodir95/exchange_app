@@ -8,3 +8,9 @@ abstract class ExchangeRateEvent extends Equatable {
 }
 
 class FetchExchangeRates extends ExchangeRateEvent {}
+
+class ShareApp extends ExchangeRateEvent {
+  String urlAddress;
+
+  ShareApp({required this.urlAddress});
+}
