@@ -8,7 +8,9 @@ import 'package:exchange_app/src/services/exchange_api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   final exchangeApiService = ExchangeApiService();
   final exchangeRateRepository =
       ExchangeRateRepository(apiService: exchangeApiService);
@@ -32,7 +34,7 @@ void main() {
         ],
         path: 'assets/lang',
         fallbackLocale: const Locale('en', 'US'),
-        child: MyApp(),
+        child: const MyApp(),
       ),
     ),
   );
