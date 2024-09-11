@@ -14,3 +14,9 @@ class ShareApp extends ExchangeRateEvent {
 
   ShareApp({required this.urlAddress});
 }
+
+class CallNumber extends ExchangeRateEvent {
+  String callNumber;
+
+  CallNumber({required this.callNumber});
+}

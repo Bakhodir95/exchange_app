@@ -10,6 +10,7 @@ class ExchangeRateBloc extends Bloc<ExchangeRateEvent, ExchangeRateState> {
   ExchangeRateBloc({required this.repository}) : super(ExchangeRateLoading()) {
     on<FetchExchangeRates>(_onFetchExchangeRates);
     on<ShareApp>(_launchURL);
+    on<CallNumber>(_callPhoneNumber);
   }
 
   Future<void> _onFetchExchangeRates(
@@ -30,6 +31,19 @@ class ExchangeRateBloc extends Bloc<ExchangeRateEvent, ExchangeRateState> {
       await launchUrl(uri);
     } else {
       throw 'Could not launch ${event.urlAddress}';
+    }
+  }
+
+  Future<void> _callPhoneNumber(
+      CallNumber event, Emitter<ExchangeRateState> emit) async {
+    final Uri url = Uri(
+      scheme: 'tel',
+      path: event.callNumber,
+    );
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw 'Could not launch $url';
     }
   }
 }
