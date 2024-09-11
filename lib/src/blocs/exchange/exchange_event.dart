@@ -20,3 +20,7 @@ class CallNumber extends ExchangeRateEvent {
 
   CallNumber({required this.callNumber});
 }
+
+class LaunchTelegram extends ExchangeRateEvent {}
+
+class AboutUsViewed extends ExchangeRateEvent {}

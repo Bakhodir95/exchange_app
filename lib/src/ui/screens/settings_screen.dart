@@ -1,7 +1,9 @@
 import 'package:exchange_app/src/blocs/exchange/exchange_bloc.dart';
 import 'package:exchange_app/src/blocs/exchange/exchange_event.dart';
+import 'package:exchange_app/src/blocs/theme/theme_block.dart';
+import 'package:exchange_app/src/blocs/theme/theme_event.dart';
+import 'package:exchange_app/src/blocs/theme/theme_state.dart';
 import 'package:exchange_app/src/ui/screens/about_app_screen.dart';
-import 'package:exchange_app/src/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share_plus/share_plus.dart';
@@ -39,13 +41,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
           ListTile(
-            onTap: () {},
             leading: const Icon(Icons.mode_night_outlined),
             title: const Text("Night Mode"),
-            trailing: const Icon(Icons.arrow_forward_ios_rounded),
+            trailing: BlocBuilder<ThemeBloc, ThemeState>(
+              builder: (context, state) {
+                final isDarkMode =
+                    (state as ThemeInitial).themeMode == ThemeMode.dark;
+                return Switch(
+                  value: isDarkMode,
+                  onChanged: (value) {
+                    context
+                        .read<ThemeBloc>()
+                        .add(ToggleTheme(isDarkMode: value));
+                  },
+                );
+              },
+            ),
           ),
           ListTile(
-            onTap: () {},
+            onTap: () async {
+              context
+                  .read<ExchangeRateBloc>()
+                  .add(LaunchTelegram());
+            },
             leading: const Icon(Icons.telegram),
             title: const Text("Complaints and Suggestions"),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
@@ -80,14 +98,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
           ListTile(
-            onTap: () async {
+            onTap: () {
+              // BlocProvider.of<ExchangeRateBloc>(context).add(AboutUsViewed());
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => AboutAppScreen()),
               );
             },
             leading: const Icon(Icons.transform_sharp),
-            title: const Text("About  the App"),
+            title: const Text("About the App"),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
         ],

@@ -1,18 +1,29 @@
+import 'package:exchange_app/src/blocs/theme/theme_block.dart';
+import 'package:exchange_app/src/blocs/theme/theme_state.dart';
 import 'package:exchange_app/src/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(360, 480),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: ExchangeRateScreen(),
-      ),
+    return BlocBuilder<ThemeBloc, ThemeState>(
+      builder: (context, state) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Echange App',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            brightness: Brightness.light,
+          ),
+          darkTheme: ThemeData(
+            brightness: Brightness.dark,
+            primarySwatch: Colors.blue,
+          ),
+          themeMode: (state as ThemeInitial).themeMode,
+          home: const ExchangeRateScreen(),
+        );
+      },
     );
   }
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:bloc/bloc.dart';
 import 'package:exchange_app/src/blocs/exchange/exchange_event.dart';
 import 'package:exchange_app/src/blocs/exchange/exchange_state.dart';
@@ -10,7 +12,8 @@ class ExchangeRateBloc extends Bloc<ExchangeRateEvent, ExchangeRateState> {
   ExchangeRateBloc({required this.repository}) : super(ExchangeRateLoading()) {
     on<FetchExchangeRates>(_onFetchExchangeRates);
     on<ShareApp>(_launchURL);
-    on<CallNumber>(_callPhoneNumber);
+    on<LaunchTelegram>(_launchTelegram);
+    on<AboutUsViewed>(_onViewAboutUs);
   }
 
   Future<void> _onFetchExchangeRates(
@@ -26,24 +29,29 @@ class ExchangeRateBloc extends Bloc<ExchangeRateEvent, ExchangeRateState> {
 
   Future<void> _launchURL(
       ShareApp event, Emitter<ExchangeRateState> emit) async {
-    final Uri uri = Uri.parse(event.urlAddress);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      throw 'Could not launch ${event.urlAddress}';
-    }
+    try {
+      final Uri uri = Uri.parse(event.urlAddress);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri);
+      } else {
+        throw 'Could not launch ${event.urlAddress}';
+      }
+    } catch (e) {}
   }
 
-  Future<void> _callPhoneNumber(
-      CallNumber event, Emitter<ExchangeRateState> emit) async {
-    final Uri url = Uri(
-      scheme: 'tel',
-      path: event.callNumber,
-    );
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+  Future<void> _launchTelegram(
+      LaunchTelegram event, Emitter<ExchangeRateState> emit) async {
+    try {
+      const url = 'https://t.me/bakhodir1995';
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    } catch (e) {}
+  }
+
+  void _onViewAboutUs(AboutUsViewed event, Emitter<ExchangeRateState> emit) {
+    emit(AboutUsViewed() as ExchangeRateState);
   }
 }

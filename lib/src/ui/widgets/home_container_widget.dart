@@ -1,4 +1,3 @@
-import 'package:exchange_app/app.dart';
 import 'package:exchange_app/src/models/exchange.dart';
 import 'package:flutter/material.dart';
 
