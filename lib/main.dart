@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:exchange_app/app.dart';
 import 'package:exchange_app/src/blocs/exchange/exchange_bloc.dart';
 import 'package:exchange_app/src/blocs/theme/theme_block.dart';
@@ -23,7 +24,16 @@ void main() {
               ExchangeRateBloc(repository: exchangeRateRepository),
         ),
       ],
-      child: MyApp(),
+      child: EasyLocalization(
+        supportedLocales: const [
+          Locale('en', 'US'),
+          Locale('uz', 'UZ'),
+          Locale('ru', 'RU'),
+        ],
+        path: 'assets/lang',
+        fallbackLocale: const Locale('en', 'US'),
+        child: MyApp(),
+      ),
     ),
   );
 }

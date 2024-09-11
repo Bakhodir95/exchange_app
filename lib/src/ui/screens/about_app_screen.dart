@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class AboutAppScreen extends StatelessWidget {
@@ -7,7 +8,7 @@ class AboutAppScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("About App"),
+        title:  Text("about_the_app".tr()),
         centerTitle: true,
       ),
       body: const Padding(

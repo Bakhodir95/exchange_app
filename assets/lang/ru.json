@@ -1,0 +1,16 @@
+{   "exchange_rates":"Курсы валют",
+    "convert_currency": "Конвертировать валюту",
+    "enter_amount": "Введите сумму",
+    "buy": "Купить",
+    "sell": "Продать",
+    "converted_amount": "Конвертированная сумма",
+    "sum": "сумма",
+    "settings":"Настройки",
+    "languages":"Языки",
+    "night_mode":"Ночной режим",
+    "complains_and_suggestions":"Жалобы и предложения",
+    "call_us":"Позвоните нам",
+    "share_with_friends":"Поделиться с друзьями",
+    "about_the_app":"О приложении",
+    "updated_at": "Обновлено"
+}

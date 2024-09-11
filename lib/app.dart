@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:exchange_app/main.dart';
 import 'package:exchange_app/src/blocs/theme/theme_block.dart';
 import 'package:exchange_app/src/blocs/theme/theme_state.dart';
 import 'package:exchange_app/src/ui/screens/home_screen.dart';
@@ -10,6 +12,9 @@ class MyApp extends StatelessWidget {
     return BlocBuilder<ThemeBloc, ThemeState>(
       builder: (context, state) {
         return MaterialApp(
+          localizationsDelegates: context.localizationDelegates,
+          supportedLocales: context.supportedLocales,
+          locale: context.locale,
           debugShowCheckedModeBanner: false,
           title: 'Echange App',
           theme: ThemeData(

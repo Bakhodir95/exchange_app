@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:exchange_app/src/blocs/exchange/exchange_bloc.dart';
 import 'package:exchange_app/src/blocs/exchange/exchange_event.dart';
 import 'package:exchange_app/src/blocs/exchange/exchange_state.dart';
@@ -20,7 +21,7 @@ class ExchangeRateScreen extends StatelessWidget {
       child: Scaffold(
         drawer: const SettingsScreen(),
         appBar: AppBar(
-          title: const Text("Exchange Rates"),
+          title: Text("exchange_rates".tr()),
           backgroundColor: Colors.amber,
           centerTitle: true,
         ),

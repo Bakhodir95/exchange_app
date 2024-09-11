@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:exchange_app/src/blocs/exchange/exchange_bloc.dart';
 import 'package:exchange_app/src/blocs/exchange/exchange_event.dart';
 import 'package:exchange_app/src/blocs/theme/theme_block.dart';
@@ -6,7 +7,6 @@ import 'package:exchange_app/src/blocs/theme/theme_state.dart';
 import 'package:exchange_app/src/ui/screens/about_app_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:share_plus/share_plus.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -22,13 +22,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
+          DrawerHeader(
+            decoration: const BoxDecoration(
               color: Colors.amber,
             ),
             child: Text(
-              "Settings",
-              style: TextStyle(
+              "settings".tr(),
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 24,
               ),
@@ -37,12 +37,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.language),
-            title: const Text("Language"),
+            title: Text("language".tr()),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
           ListTile(
             leading: const Icon(Icons.mode_night_outlined),
-            title: const Text("Night Mode"),
+            title: Text("night_mode".tr()),
             trailing: BlocBuilder<ThemeBloc, ThemeState>(
               builder: (context, state) {
                 final isDarkMode =
@@ -60,12 +60,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           ListTile(
             onTap: () async {
-              context
-                  .read<ExchangeRateBloc>()
-                  .add(LaunchTelegram());
+              context.read<ExchangeRateBloc>().add(LaunchTelegram());
             },
             leading: const Icon(Icons.telegram),
-            title: const Text("Complaints and Suggestions"),
+            title: Text("complaints_and_suggestions".tr()),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
           ListTile(
@@ -75,7 +73,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   .add(CallNumber(callNumber: "+998900144173"));
             },
             leading: const Icon(Icons.phone),
-            title: const Text("Call Us"),
+            title: Text("call_us".tr()),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
           ListTile(
@@ -89,13 +87,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       );
                 },
                 leading: const Icon(Icons.share),
-                title: const Text("Share with friends"),
+                title: Text("share_with_friends".tr()),
                 trailing: const Icon(Icons.arrow_forward_ios_rounded),
               );
             },
-            leading: const Icon(Icons.share),
-            title: const Text("Share with friends"),
-            trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
           ListTile(
             onTap: () {
@@ -106,7 +101,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               );
             },
             leading: const Icon(Icons.transform_sharp),
-            title: const Text("About the App"),
+            title: Text("about_the_app".tr()),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
         ],

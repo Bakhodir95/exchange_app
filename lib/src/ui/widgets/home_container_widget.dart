@@ -1,6 +1,8 @@
 import 'package:exchange_app/src/models/exchange.dart';
+import 'package:exchange_app/src/ui/screens/converting_screen.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class HomeWidget extends StatelessWidget {
   final Exchange exchange;
 
@@ -37,46 +39,53 @@ class HomeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(15),
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        width: double.infinity,
-        height: MediaQuery.of(context).size.height / 4,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          gradient: const LinearGradient(
-            colors: [Colors.green, Colors.yellow, Colors.blue],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (ctx) => ConvertingScreen(
+                        exchange: exchange,
+                        imagePath: flagsMap[exchange.code],
+                      )));
+        },
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height / 4,
+          decoration: BoxDecoration(
+            color: Colors.amber,
+            borderRadius: BorderRadius.circular(20),
           ),
-        ),
-        child: Row(
-          children: [
-            Container(
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadiusDirectional.circular(15)),
-              child: Image.asset(
-                flagsMap[exchange.code] ?? 'assets/images/default.png',
-                fit: BoxFit.cover,
-                height: 75,
-                width: 100,
+          child: Row(
+            children: [
+              Container(
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadiusDirectional.circular(15)),
+                child: Image.asset(
+                  flagsMap[exchange.code] ?? 'assets/images/default.png',
+                  fit: BoxFit.cover,
+                  height: 200,
+                  width: MediaQuery.of(context).size.width / 3,
+                ),
               ),
-            ),
-            const SizedBox(width: 20),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                      "${exchange.title} =  CB ${exchange.price.toString()} sum"),
-                  Text("Sell: ${exchange.sell ?? "Unknown"}"),
-                  Text("Buy: ${exchange.buy ?? "Unknown"}"),
-                  Text("Updated at: ${exchange.date}"),
-                ],
+              const SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                        "${exchange.title} =  CB ${exchange.price.toString()} sum"),
+                    Text("Sell: ${exchange.sell ?? "Unknown"}"),
+                    Text("Buy: ${exchange.buy ?? "Unknown"}"),
+                    Text("Updated at: ${exchange.date}"),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -48,7 +48,9 @@ class ExchangeRateBloc extends Bloc<ExchangeRateEvent, ExchangeRateState> {
       } else {
         throw 'Could not launch $url';
       }
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
   }
 
   void _onViewAboutUs(AboutUsViewed event, Emitter<ExchangeRateState> emit) {

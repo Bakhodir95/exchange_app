@@ -9,12 +9,14 @@ abstract class ExchangeRateEvent extends Equatable {
 
 class FetchExchangeRates extends ExchangeRateEvent {}
 
+// ignore: must_be_immutable
 class ShareApp extends ExchangeRateEvent {
   String urlAddress;
 
   ShareApp({required this.urlAddress});
 }
 
+// ignore: must_be_immutable
 class CallNumber extends ExchangeRateEvent {
   String callNumber;
 
