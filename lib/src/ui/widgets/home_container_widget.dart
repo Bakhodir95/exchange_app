@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:exchange_app/src/models/exchange.dart';
 import 'package:exchange_app/src/ui/screens/converting_screen.dart';
 import 'package:flutter/material.dart';
@@ -78,9 +79,9 @@ class HomeWidget extends StatelessWidget {
                   children: [
                     Text(
                         "${exchange.title} =  CB ${exchange.price.toString()} sum"),
-                    Text("Sell: ${exchange.sell ?? "Unknown"}"),
-                    Text("Buy: ${exchange.buy ?? "Unknown"}"),
-                    Text("Updated at: ${exchange.date}"),
+                    Text("sell: ${exchange.sell ?? "Unknown"}".tr()),
+                    Text("buy: ${exchange.buy ?? "Unknown"}".tr()),
+                    Text("updated_at: ${exchange.date}".tr()),
                   ],
                 ),
               ),
