@@ -51,8 +51,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           ListTile(
             title: Text(context.tr("languages")),
-            leading: const Icon(Icons.language),
+            leading: const Icon(
+              Icons.language,
+              color: Color.fromARGB(255, 53, 175, 57),
+            ),
             trailing: DropdownButton<String>(
+              borderRadius: BorderRadius.circular(10),
+              dropdownColor: const Color.fromARGB(255, 84, 245, 89),
               value: context.locale.languageCode,
               items: const [
                 DropdownMenuItem(
@@ -65,7 +70,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 DropdownMenuItem(
                   value: "ru",
-                  child: Text("RU"),
+                  child: Text("Ru"),
                 ),
               ],
               onChanged: (value) {
@@ -76,7 +81,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.mode_night_outlined),
+            leading: const Icon(
+              Icons.mode_night_outlined,
+              color: Colors.amber,
+            ),
             title: Text(context.tr("night_mode")),
             trailing: BlocBuilder<ThemeBloc, ThemeState>(
               builder: (context, state) {
@@ -97,7 +105,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             onTap: () async {
               context.read<ExchangeRateBloc>().add(LaunchTelegram());
             },
-            leading: const Icon(Icons.telegram),
+            leading: const Icon(
+              Icons.telegram,
+              color: Colors.blue,
+            ),
             title: Text("complains_and_suggestions".tr()),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
@@ -107,7 +118,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   .read<ExchangeRateBloc>()
                   .add(CallNumber(callNumber: "+998900144173"));
             },
-            leading: const Icon(Icons.phone),
+            leading: const Icon(
+              Icons.phone,
+              color: Colors.blue,
+            ),
             title: Text("call_us".tr()),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
@@ -121,10 +135,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AboutAppScreen()),
+                MaterialPageRoute(builder: (context) => const AboutAppScreen()),
               );
             },
-            leading: const Icon(Icons.info_outline),
+            leading: const Icon(
+              Icons.info_outline,
+              color: Colors.yellow,
+            ),
             title: Text("about_the_app".tr()),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),

@@ -16,7 +16,6 @@ class ExchangeApiService {
           ),
         );
       }
-      print(response);
       return exchanges;
     } catch (e) {
       print('Error fetching exchange rates: $e');

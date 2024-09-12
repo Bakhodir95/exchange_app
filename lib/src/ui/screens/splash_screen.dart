@@ -18,7 +18,6 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen>
   void initState() {
     super.initState();
 
-    // Initialize the AnimationController
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 3),
@@ -27,7 +26,7 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen>
     _fadeAnimation =
         Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
       parent: _animationController,
-      curve: Curves.easeInOut,
+      curve: Curves.fastEaseInToSlowEaseOut,
     ));
 
     _slideAnimation = TweenSequence<Offset>([
@@ -39,7 +38,7 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen>
         weight: 50, //
       ),
       TweenSequenceItem(
-        tween: ConstantTween<Offset>(const Offset(0, 0)), // Stay in the center
+        tween: ConstantTween<Offset>(const Offset(0, 0)),
         weight: 20,
       ),
       TweenSequenceItem(
@@ -57,7 +56,7 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen>
   }
 
   _navigateToHome() async {
-    await Future.delayed(const Duration(seconds: 4));
+    await Future.delayed(const Duration(seconds: 3));
 
     Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (ctx) => const ExchangeRateScreen()));
