@@ -122,7 +122,7 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                             onPressed: _buy,
                             child: Text(
                               "buy".tr(),
-                              style: TextStyle(fontSize: 20),
+                              style: const TextStyle(fontSize: 20),
                             ),
                           ),
                         ),
@@ -133,7 +133,7 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                             onPressed: _sell,
                             child: Text(
                               "sell".tr(),
-                              style: TextStyle(fontSize: 20),
+                              style: const TextStyle(fontSize: 20),
                             ),
                           ),
                         ),
@@ -141,16 +141,25 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        isSellPressed
-                            ? "${context.tr('converted_amount')}: \n${convertedAmountSell.toStringAsFixed(2)} ${context.tr('sum')}"
-                            : isBuyPressed
-                                ? "${context.tr('converted_amount')}: \n${convertedAmountBuy.toStringAsFixed(2)} ${context.tr('sum')}"
-                                : "${context.tr('converted_amount')}: 0.00 ${context.tr('sum')}",
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
+                      child: Container(
+                        padding: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: const Color.fromARGB(255, 144, 240, 147),
+                        ),
+                        child: Text(
+                          widget.exchange.buy != null
+                              ? isSellPressed
+                                  ? "${context.tr('converted_amount')}: \n${convertedAmountSell.toStringAsFixed(2)} ${context.tr('sum')}"
+                                  : isBuyPressed
+                                      ? "${context.tr('converted_amount')}: \n${convertedAmountBuy.toStringAsFixed(2)} ${context.tr('sum')}"
+                                      : "${context.tr('converted_amount')}: 0.00 ${context.tr('sum')}"
+                              : context.tr("no_data"),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
