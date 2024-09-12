@@ -6,6 +6,7 @@ import 'package:exchange_app/src/blocs/exchange/exchange_state.dart';
 import 'package:exchange_app/src/models/exchange.dart';
 import 'package:exchange_app/src/repositories/exchange_repositories.dart';
 import 'package:exchange_app/src/services/exchange_api_service.dart';
+import 'package:exchange_app/src/services/searchviewdelegate.dart';
 import 'package:exchange_app/src/ui/screens/settings_screen.dart';
 import 'package:exchange_app/src/ui/widgets/home_container_widget.dart';
 import 'package:flutter/material.dart';
@@ -21,20 +22,11 @@ class ExchangeRateScreen extends StatefulWidget {
 class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
   List<Exchange> exchanges = [];
 
-  List<Exchange> _sortExchanges(List<Exchange> exchanges) {
-    List<Exchange> filteredExchanges = exchanges.where((exchange) {
-      return exchange.buy != null;
-    }).toList();
-
-    filteredExchanges.sort((a, b) => a.buy!.compareTo(b.buy!));
-
-    return filteredExchanges;
-  }
-
-  void _onSortButtonPressed() {
-    setState(() {
-      exchanges = _sortExchanges(exchanges);
-    });
+  void _onSearchButtonPressed() async {
+    showSearch(
+      context: context,
+      delegate: ExchangeSearchDelegate(exchanges),
+    );
   }
 
   @override
@@ -58,8 +50,8 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
             child: AppBar(
               actions: [
                 IconButton(
-                  onPressed: _onSortButtonPressed,
-                  icon: const Icon(Icons.sort),
+                  onPressed: _onSearchButtonPressed, // Trigger search
+                  icon: const Icon(Icons.search),
                 ),
               ],
               title: Text(context.tr("exchange_rates")),
@@ -75,23 +67,25 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
               return const Center(child: CircularProgressIndicator());
             } else if (state is ExchangeRateLoaded) {
               exchanges = state.exchangeRates;
+              List<Exchange> filteredExchanges = exchanges.where((exchange) {
+                return exchange.sell != null;
+              }).toList();
+
+              filteredExchanges.sort((a, b) => a.sell!.compareTo(b.sell!));
 
               return CarouselSlider(
                 options: CarouselOptions(
-                  height: MediaQuery.of(context).size.height,
-                  autoPlay: true,
-                  autoPlayInterval: const Duration(seconds: 6),
-                  enableInfiniteScroll: true,
-                  scrollDirection: Axis.vertical,
-                  viewportFraction: 0.3,
-                ),
-                items: exchanges.map((exchange) {
+                    height: MediaQuery.of(context).size.height,
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 6),
+                    enableInfiniteScroll: true,
+                    scrollDirection: Axis.vertical,
+                    viewportFraction: 0.33),
+                items: filteredExchanges.map((exchange) {
                   return Builder(
                     builder: (BuildContext context) {
                       return Container(
-                        width: MediaQuery.of(context)
-                            .size
-                            .width, 
+                        width: MediaQuery.of(context).size.width,
                         decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -105,9 +99,7 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: HomeWidget(
-                              exchange:
-                                  exchange), // Your widget to display exchange data
+                          child: HomeWidget(exchange: exchange),
                         ),
                       );
                     },
