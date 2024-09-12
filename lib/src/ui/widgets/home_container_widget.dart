@@ -54,16 +54,24 @@ class HomeWidget extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           width: double.infinity,
           height: MediaQuery.of(context).size.height / 4,
-          decoration: BoxDecoration(
-            color: Colors.amber,
-            borderRadius: BorderRadius.circular(20),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.green, Colors.lightGreenAccent],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
           ),
           child: Row(
             children: [
               Container(
                 clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadiusDirectional.circular(15)),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20)),
+                ),
                 child: Image.asset(
                   flagsMap[exchange.code] ?? 'assets/images/default.png',
                   fit: BoxFit.contain,
@@ -82,11 +90,11 @@ class HomeWidget extends StatelessWidget {
                       style: const TextStyle(fontSize: 16),
                     ),
                     Text(
-                      "${"sell".tr()}: ${(exchange.sell ?? "-")}",
+                      "${"sell".tr()}: ${(exchange.sell ?? context.tr("no_data"))}",
                       style: const TextStyle(fontSize: 16),
                     ),
                     Text(
-                      "${"buy".tr()}: ${(exchange.buy ?? "-")}",
+                      "${"buy".tr()}: ${(exchange.buy ?? context.tr("no_data"))}",
                       style: const TextStyle(fontSize: 16),
                     ),
                     Text(

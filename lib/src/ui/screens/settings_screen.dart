@@ -18,20 +18,24 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    print("Settings");
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
             decoration: const BoxDecoration(
-              color: Colors.amber,
+              gradient: LinearGradient(
+                colors: [Colors.green, Colors.lightGreenAccent],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
             ),
-            child: Text(
-              context.tr("settings"),
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 24,
+            child: Center(
+              child: Text(
+                context.tr("settings"),
+                style: const TextStyle(
+                  fontSize: 24,
+                ),
               ),
             ),
           ),
