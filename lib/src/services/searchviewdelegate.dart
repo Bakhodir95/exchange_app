@@ -35,7 +35,6 @@ class ExchangeSearchDelegate extends SearchDelegate<Exchange?> {
 
   @override
   List<Widget>? buildActions(BuildContext context) {
-    // Actions for the search bar (e.g., clear button)
     return [
       IconButton(
         icon: const Icon(Icons.clear),

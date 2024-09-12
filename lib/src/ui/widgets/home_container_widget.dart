@@ -90,11 +90,11 @@ class HomeWidget extends StatelessWidget {
                       style: const TextStyle(fontSize: 16),
                     ),
                     Text(
-                      "${"sell".tr()}: ${(exchange.sell ?? context.tr("no_data"))}",
+                      "${"sell".tr()}: ${(exchange.sell ?? context.tr("no_data"))} ${context.tr("sum")}",
                       style: const TextStyle(fontSize: 16),
                     ),
                     Text(
-                      "${"buy".tr()}: ${(exchange.buy ?? context.tr("no_data"))}",
+                      "${"buy".tr()}: ${(exchange.buy ?? context.tr("no_data"))} ${context.tr("sum")}",
                       style: const TextStyle(fontSize: 16),
                     ),
                     Text(

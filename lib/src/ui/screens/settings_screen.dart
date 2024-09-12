@@ -34,7 +34,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const CircleAvatar(
-                  radius: 40,
+                  radius: 45,
                   backgroundImage: AssetImage('assets/images/splash.png'),
                 ),
                 const SizedBox(height: 10),

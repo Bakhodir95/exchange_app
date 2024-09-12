@@ -50,7 +50,7 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
             child: AppBar(
               actions: [
                 IconButton(
-                  onPressed: _onSearchButtonPressed, // Trigger search
+                  onPressed: _onSearchButtonPressed, 
                   icon: const Icon(Icons.search),
                 ),
               ],
@@ -83,7 +83,7 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
                     enableInfiniteScroll: true,
                     scrollDirection: Axis.vertical,
                     viewportFraction: 0.33,
-                    enlargeCenterPage: true, // Keep this true
+                    enlargeCenterPage: true, 
                   ),
                   itemCount: filteredExchanges.length,
                   itemBuilder: (context, index, realIndex) {
