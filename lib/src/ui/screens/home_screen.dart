@@ -91,7 +91,7 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
                       return Container(
                         width: MediaQuery.of(context)
                             .size
-                            .width, // Full width of the screen
+                            .width, 
                         decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(10)),

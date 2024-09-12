@@ -86,7 +86,7 @@ class HomeWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${exchange.title} = CB ${(exchange.price)} sum",
+                      "${exchange.title} = CB ${(exchange.price)} ${context.tr("sum")}",
                       style: const TextStyle(fontSize: 16),
                     ),
                     Text(
