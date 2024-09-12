@@ -94,7 +94,7 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                         controller: rateController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          labelText: context.tr('enter_amount'),
+                          labelText: 'enter_amount'.tr(),
                           prefixIcon: const Icon(Icons.edit_outlined),
                           border: const OutlineInputBorder(),
                         ),
@@ -121,8 +121,8 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                           child: ElevatedButton(
                             onPressed: _buy,
                             child: Text(
-                              context.tr("buy"),
-                              style: const TextStyle(fontSize: 20),
+                              "buy".tr(),
+                              style: TextStyle(fontSize: 20),
                             ),
                           ),
                         ),
@@ -132,8 +132,8 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                           child: ElevatedButton(
                             onPressed: _sell,
                             child: Text(
-                              context.tr("sell"),
-                              style: const TextStyle(fontSize: 20),
+                              "sell".tr(),
+                              style: TextStyle(fontSize: 20),
                             ),
                           ),
                         ),
@@ -143,18 +143,15 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
                         isSellPressed
-                            ? "${context.tr('converted_amount', args: [
-                                    convertedAmountSell.toStringAsFixed(2)
-                                  ])} ${context.tr('sum')}"
+                            ? "${context.tr('converted_amount')}: \n${convertedAmountSell.toStringAsFixed(2)} ${context.tr('sum')}"
                             : isBuyPressed
-                                ? "${context.tr('converted_amount', args: [
-                                        convertedAmountBuy.toStringAsFixed(2)
-                                      ])} ${context.tr('sum')}"
-                                : "${context.tr('converted_amount', args: [
-                                        '0.00'
-                                      ])} ${context.tr('sum')}",
+                                ? "${context.tr('converted_amount')}: \n${convertedAmountBuy.toStringAsFixed(2)} ${context.tr('sum')}"
+                                : "${context.tr('converted_amount')}: 0.00 ${context.tr('sum')}",
+                        textAlign: TextAlign.center,
                         style: const TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.bold),
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Padding(

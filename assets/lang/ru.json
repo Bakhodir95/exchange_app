@@ -15,5 +15,7 @@
     "updated_at": "Обновлено",
     "please_enter_an_amount":"Пожалуйста, введите сумму",
     "please_enter_a_valid_number":"Пожалуйста, введите действительный номер",
-    "please_enter_a_positive_number":"Пожалуйста, введите положительное число"
+    "please_enter_a_positive_number":"Пожалуйста, введите положительное число",
+    "no_data":"Нет данных"
+
 }

@@ -15,6 +15,7 @@
     "updated_at": "Updated at",
     "please_enter_an_amount":"Please enter an amount",
     "please_enter_a_valid_number":"Please enter a valid number",
-    "please_enter_a_positive_number":"Please enter a positive number"
+    "please_enter_a_positive_number":"Please enter a positive number",
+    "no_data":" No data"  
 }
   
