@@ -61,30 +61,34 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
             ),
           ),
         ),
-        body: BlocBuilder<ExchangeRateBloc, ExchangeRateState>(
-          builder: (context, state) {
-            if (state is ExchangeRateLoading) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is ExchangeRateLoaded) {
-              exchanges = state.exchangeRates;
-              List<Exchange> filteredExchanges = exchanges.where((exchange) {
-                return exchange.sell != null;
-              }).toList();
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: BlocBuilder<ExchangeRateBloc, ExchangeRateState>(
+            builder: (context, state) {
+              if (state is ExchangeRateLoading) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is ExchangeRateLoaded) {
+                exchanges = state.exchangeRates;
+                List<Exchange> filteredExchanges = exchanges.where((exchange) {
+                  return exchange.sell != null;
+                }).toList();
 
-              filteredExchanges.sort((a, b) => a.sell!.compareTo(b.sell!));
+                filteredExchanges.sort((a, b) => a.sell!.compareTo(b.sell!));
 
-              return CarouselSlider(
-                options: CarouselOptions(
+                return CarouselSlider.builder(
+                  options: CarouselOptions(
                     height: MediaQuery.of(context).size.height,
                     autoPlay: true,
                     autoPlayInterval: const Duration(seconds: 6),
                     enableInfiniteScroll: true,
                     scrollDirection: Axis.vertical,
-                    viewportFraction: 0.33),
-                items: filteredExchanges.map((exchange) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return Container(
+                    viewportFraction: 0.33,
+                    enlargeCenterPage: true, // Keep this true
+                  ),
+                  itemCount: filteredExchanges.length,
+                  itemBuilder: (context, index, realIndex) {
+                    return Center(
+                      child: Container(
                         width: MediaQuery.of(context).size.width,
                         decoration: const BoxDecoration(
                           color: Colors.white,
@@ -99,19 +103,19 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: HomeWidget(exchange: exchange),
+                          child: HomeWidget(exchange: filteredExchanges[index]),
                         ),
-                      );
-                    },
-                  );
-                }).toList(),
-              );
-            } else if (state is ExchangeRateError) {
-              return Center(child: Text('Error: ${state.message}'));
-            } else {
-              return const Center(child: Text('Unknown state'));
-            }
-          },
+                      ),
+                    );
+                  },
+                );
+              } else if (state is ExchangeRateError) {
+                return Center(child: Text('Error: ${state.message}'));
+              } else {
+                return const Center(child: Text('Unknown state'));
+              }
+            },
+          ),
         ),
       ),
     );

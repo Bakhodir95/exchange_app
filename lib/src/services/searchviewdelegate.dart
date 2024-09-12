@@ -69,11 +69,6 @@ class ExchangeSearchDelegate extends SearchDelegate<Exchange?> {
       itemBuilder: (context, index) {
         final exchange = suggestions[index];
         return ListTile(
-          trailing: Image.asset(
-            flagsMap[exchange.code] ?? 'assets/images/default.png',
-            height: 200,
-            width: MediaQuery.of(context).size.width / 3,
-          ),
           title: Text(exchange.code),
           subtitle: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,7 +79,6 @@ class ExchangeSearchDelegate extends SearchDelegate<Exchange?> {
             ],
           ),
           onTap: () {
-            // Close the search and navigate to the ConvertingScreen
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -113,6 +107,20 @@ class ExchangeSearchDelegate extends SearchDelegate<Exchange?> {
       itemBuilder: (context, index) {
         final exchange = suggestions[index];
         return ListTile(
+          leading: Container(
+            height: 200,
+            width: MediaQuery.of(context).size.width / 3,
+            clipBehavior: Clip.hardEdge,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20)),
+            ),
+            child: Image.asset(
+              flagsMap[exchange.code] ?? 'assets/images/default.png',
+              fit: BoxFit.contain,
+            ),
+          ),
           title: Text(exchange.code),
           subtitle: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,7 +131,6 @@ class ExchangeSearchDelegate extends SearchDelegate<Exchange?> {
             ],
           ),
           onTap: () {
-            // Close the search and navigate to the ConvertingScreen
             Navigator.push(
               context,
               MaterialPageRoute(

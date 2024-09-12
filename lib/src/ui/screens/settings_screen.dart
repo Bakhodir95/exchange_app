@@ -30,13 +30,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 end: Alignment.bottomRight,
               ),
             ),
-            child: Center(
-              child: Text(
-                context.tr("settings"),
-                style: const TextStyle(
-                  fontSize: 24,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const CircleAvatar(
+                  radius: 40,
+                  backgroundImage: AssetImage('assets/images/splash.png'),
                 ),
-              ),
+                const SizedBox(height: 10),
+                Text(
+                  context.tr("settings"),
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
           ),
           ListTile(
@@ -109,13 +119,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           ListTile(
             onTap: () {
-              // BlocProvider.of<ExchangeRateBloc>(context).add(AboutUsViewed());
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => AboutAppScreen()),
               );
             },
-            leading: const Icon(Icons.transform_sharp),
+            leading: const Icon(Icons.info_outline),
             title: Text("about_the_app".tr()),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
