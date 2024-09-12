@@ -10,7 +10,10 @@
     "night_mode":"Ночной режим",
     "complains_and_suggestions":"Жалобы и предложения",
     "call_us":"Позвоните нам",
-    "share_with_friends":"Поделиться с друзьями",
+    "share_with_friends":"Поделиться c друзьями",
     "about_the_app":"O приложении",
-    "updated_at": "Обновлено"
+    "updated_at": "Обновлено",
+    "please_enter_an_amount":"Пожалуйста, введите сумму",
+    "please_enter_a_valid_number":"Пожалуйста, введите действительный номер",
+    "please_enter_a_positive_number":"Пожалуйста, введите положительное число"
 }

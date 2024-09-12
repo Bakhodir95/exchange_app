@@ -26,7 +26,7 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
     if (_formKey.currentState!.validate()) {
       setState(() {
         convertedAmountSell = double.parse(rateController.text) *
-            double.parse(widget.exchange.sell.toString());
+            double.parse(widget.exchange.buy.toString());
         rateController.clear();
         isSellPressed = true;
         isBuyPressed = false;
@@ -38,7 +38,7 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
     if (_formKey.currentState!.validate()) {
       setState(() {
         convertedAmountBuy = double.parse(rateController.text) *
-            double.parse(widget.exchange.buy.toString());
+            double.parse(widget.exchange.sell.toString());
         rateController.clear();
         isBuyPressed = true;
         isSellPressed = false;
@@ -94,19 +94,19 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                         controller: rateController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          labelText: 'enter_amount'.tr(),
+                          labelText: context.tr('enter_amount'),
                           prefixIcon: const Icon(Icons.edit_outlined),
                           border: const OutlineInputBorder(),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter an amount';
+                            return context.tr('please_enter_an_amount');
                           }
                           if (double.tryParse(value) == null) {
-                            return 'Please enter a valid number';
+                            return context.tr('please_enter_a_valid_number');
                           }
                           if (double.parse(value) <= 0) {
-                            return 'Please enter a positive number';
+                            return context.tr('please_enter_a_positive_number');
                           }
                           return null;
                         },
@@ -121,8 +121,8 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                           child: ElevatedButton(
                             onPressed: _buy,
                             child: Text(
-                              "buy".tr(),
-                              style: TextStyle(fontSize: 20),
+                              context.tr("buy"),
+                              style: const TextStyle(fontSize: 20),
                             ),
                           ),
                         ),
@@ -132,8 +132,8 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                           child: ElevatedButton(
                             onPressed: _sell,
                             child: Text(
-                              "sell".tr(),
-                              style: TextStyle(fontSize: 20),
+                              context.tr("sell"),
+                              style: const TextStyle(fontSize: 20),
                             ),
                           ),
                         ),
@@ -143,12 +143,16 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
                         isSellPressed
-                            ? "converted_amount: ${convertedAmountSell.toStringAsFixed(2)} sum"
-                                .tr()
+                            ? "${context.tr('converted_amount', args: [
+                                    convertedAmountSell.toStringAsFixed(2)
+                                  ])} ${context.tr('sum')}"
                             : isBuyPressed
-                                ? "converted_amount: ${convertedAmountBuy.toStringAsFixed(2)} sum"
-                                    .tr()
-                                : "converted_amount: 0.00 sum".tr(),
+                                ? "${context.tr('converted_amount', args: [
+                                        convertedAmountBuy.toStringAsFixed(2)
+                                      ])} ${context.tr('sum')}"
+                                : "${context.tr('converted_amount', args: [
+                                        '0.00'
+                                      ])} ${context.tr('sum')}",
                         style: const TextStyle(
                             fontSize: 25, fontWeight: FontWeight.bold),
                       ),

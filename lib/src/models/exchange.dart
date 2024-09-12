@@ -21,10 +21,10 @@ class Exchange {
     return Exchange(
         title: map['title'] as String,
         code: map['code'] as String,
-        buy: map['nbu_buy_price'] != null
+        buy: map['nbu_buy_price'] != null && map['nbu_buy_price'].isNotEmpty
             ? double.parse(map["nbu_buy_price"])
             : null,
-        sell: map['nbu_cell_price'] != null
+        sell: map['nbu_cell_price'] != null && map['nbu_buy_price'].isNotEmpty
             ? double.parse(map["nbu_cell_price"])
             : null,
         price: double.parse(map["cb_price"]),
@@ -42,4 +42,3 @@ class Exchange {
     };
   }
 }
-

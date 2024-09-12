@@ -12,6 +12,9 @@
     "call_us":"Bizga qo'ng'iroq qiling",
     "share_with_friends":"Do'stlarga ulashing",
     "about_the_app":"Ilova haqida",
-    "updated_at": "yangilangan"
+    "updated_at": "yangilangan vaqt",
+    "please_enter_an_amount":"Iltimos, summani kiriting",
+    "please_enter_a_valid_number":"Iltimos, to'g'ri raqam kiriting",
+    "please_enter_a_positive_number":"Iltimos, ijobiy raqam kiriting"
   
 }

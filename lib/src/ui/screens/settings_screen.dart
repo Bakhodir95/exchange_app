@@ -18,6 +18,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
+    print("Settings");
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -27,7 +28,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               color: Colors.amber,
             ),
             child: Text(
-              "settings".tr(),
+              context.tr("settings"),
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 24,
@@ -35,14 +36,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           ListTile(
-            onTap: () {},
+            title: Text(context.tr("languages")),
             leading: const Icon(Icons.language),
-            title: Text("language".tr()),
-            trailing: const Icon(Icons.arrow_forward_ios_rounded),
+            trailing: DropdownButton<String>(
+              value: context.locale.languageCode,
+              items: const [
+                DropdownMenuItem(
+                  value: "uz",
+                  child: Text("Uz"),
+                ),
+                DropdownMenuItem(
+                  value: "en",
+                  child: Text("En"),
+                ),
+                DropdownMenuItem(
+                  value: "ru",
+                  child: Text("RU"),
+                ),
+              ],
+              onChanged: (value) {
+                if (value != null) {
+                  context.setLocale(Locale(value));
+                }
+              },
+            ),
           ),
           ListTile(
             leading: const Icon(Icons.mode_night_outlined),
-            title: Text("night_mode".tr()),
+            title: Text(context.tr("night_mode")),
             trailing: BlocBuilder<ThemeBloc, ThemeState>(
               builder: (context, state) {
                 final isDarkMode =
@@ -63,7 +84,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               context.read<ExchangeRateBloc>().add(LaunchTelegram());
             },
             leading: const Icon(Icons.telegram),
-            title: Text("complaints_and_suggestions".tr()),
+            title: Text("complains_and_suggestions".tr()),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
           ListTile(
@@ -77,20 +98,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
           ListTile(
-            onTap: () async {
-              ListTile(
-                onTap: () {
-                  context.read<ExchangeRateBloc>().add(
-                        ShareApp(
-                            urlAddress:
-                                'https://your-app-url.com'), // Replace with your app's actual URL
-                      );
-                },
-                leading: const Icon(Icons.share),
-                title: Text("share_with_friends".tr()),
-                trailing: const Icon(Icons.arrow_forward_ios_rounded),
-              );
-            },
+            onTap: () {},
+            leading: const Icon(Icons.share),
+            title: Text("share_with_friends".tr()),
+            trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
           ListTile(
             onTap: () {

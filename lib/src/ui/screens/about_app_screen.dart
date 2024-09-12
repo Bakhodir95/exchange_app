@@ -8,7 +8,7 @@ class AboutAppScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text("about_the_app".tr()),
+        title: Text(context.tr("about_the_app")),
         centerTitle: true,
       ),
       body: const Padding(

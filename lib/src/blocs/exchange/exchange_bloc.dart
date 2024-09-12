@@ -14,6 +14,7 @@ class ExchangeRateBloc extends Bloc<ExchangeRateEvent, ExchangeRateState> {
     on<ShareApp>(_launchURL);
     on<LaunchTelegram>(_launchTelegram);
     on<AboutUsViewed>(_onViewAboutUs);
+    on<CallNumber>(_onCallNumber);
   }
 
   Future<void> _onFetchExchangeRates(
@@ -55,5 +56,14 @@ class ExchangeRateBloc extends Bloc<ExchangeRateEvent, ExchangeRateState> {
 
   void _onViewAboutUs(AboutUsViewed event, Emitter<ExchangeRateState> emit) {
     emit(AboutUsViewed() as ExchangeRateState);
+  }
+
+  Future<void> _onCallNumber(
+      CallNumber event, Emitter<ExchangeRateState> emit) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: event.callNumber,
+    );
+    await launchUrl(launchUri);
   }
 }

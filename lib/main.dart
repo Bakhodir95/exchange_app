@@ -28,12 +28,13 @@ void main() async {
       ],
       child: EasyLocalization(
         supportedLocales: const [
-          Locale('en', 'US'),
-          Locale('uz', 'UZ'),
-          Locale('ru', 'RU'),
+          Locale('en'),
+          Locale('uz'),
+          Locale('ru'),
         ],
         path: 'assets/lang',
-        fallbackLocale: const Locale('en', 'US'),
+        startLocale: const Locale('uz'),
+        fallbackLocale: const Locale('en'),
         child: const MyApp(),
       ),
     ),

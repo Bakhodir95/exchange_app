@@ -16,12 +16,12 @@ class ExchangeRateScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ExchangeRateBloc(
-          repository: ExchangeRateRepository(apiService: ExchangeApiService()))
-        ..add(FetchExchangeRates()),
+        repository: ExchangeRateRepository(apiService: ExchangeApiService()),
+      )..add(FetchExchangeRates()),
       child: Scaffold(
         drawer: const SettingsScreen(),
         appBar: AppBar(
-          title: Text("exchange_rates".tr()),
+          title: Text(context.tr("exchange_rates")),
           backgroundColor: Colors.amber,
           centerTitle: true,
         ),

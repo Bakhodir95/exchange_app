@@ -66,7 +66,7 @@ class HomeWidget extends StatelessWidget {
                     borderRadius: BorderRadiusDirectional.circular(15)),
                 child: Image.asset(
                   flagsMap[exchange.code] ?? 'assets/images/default.png',
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                   height: 200,
                   width: MediaQuery.of(context).size.width / 3,
                 ),
@@ -78,10 +78,21 @@ class HomeWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                        "${exchange.title} =  CB ${exchange.price.toString()} sum"),
-                    Text("sell: ${exchange.sell ?? "Unknown"}".tr()),
-                    Text("buy: ${exchange.buy ?? "Unknown"}".tr()),
-                    Text("updated_at: ${exchange.date}".tr()),
+                      "${exchange.title} = CB ${(exchange.price)} sum",
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    Text(
+                      "${"sell".tr()}: ${(exchange.sell ?? "-")}",
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    Text(
+                      "${"buy".tr()}: ${(exchange.buy ?? "-")}",
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    Text(
+                      "${"updated_at".tr()}: ${exchange.date}",
+                      style: const TextStyle(fontSize: 16),
+                    ),
                   ],
                 ),
               ),

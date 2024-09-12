@@ -12,6 +12,9 @@
     "call_us":"Call Us",
     "share_with_friends":"Share with Friends",
     "about_the_app":"About the App",
-    "updated_at": "Updated at"
+    "updated_at": "Updated at",
+    "please_enter_an_amount":"Please enter an amount",
+    "please_enter_a_valid_number":"Please enter a valid number",
+    "please_enter_a_positive_number":"Please enter a positive number"
 }
   
