@@ -5,6 +5,7 @@ import 'package:exchange_app/src/blocs/theme/theme_block.dart';
 import 'package:exchange_app/src/blocs/theme/theme_event.dart';
 import 'package:exchange_app/src/blocs/theme/theme_state.dart';
 import 'package:exchange_app/src/extentions/mediaquery.dart';
+import 'package:exchange_app/src/extentions/stringToDate.dart';
 import 'package:exchange_app/src/ui/screens/about_app_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,32 +35,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircleAvatar(
-                  radius:
-                      context.screenWidth / 10, // Responsive size for avatar
-                  backgroundImage: const AssetImage('assets/images/splash.png'),
+                const CircleAvatar(
+                  radius: 45,
+                  backgroundImage: AssetImage('assets/images/splash.png'),
                 ),
                 SizedBox(
                   height: context.screenHeight / 100,
                 ),
-                Text(
-                  context.tr("settings"),
-                  style: TextStyle(
-                    fontSize: context.responsiveFontSize(24),
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                Expanded(
+                  child: Text(
+                    context.tr("settings"),
+                    style: TextStyle(
+                      fontSize: context.responsiveFontSize(24),
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],
             ),
           ),
           ListTile(
-            title: Text(
-              context.tr("languages"),
-              style: TextStyle(
-                  fontSize:
-                      context.responsiveFontSize(18)), // Responsive font size
-            ),
+            title: Text(context.tr("languages")),
             leading: const Icon(
               Icons.language,
               color: Color.fromARGB(255, 53, 175, 57),
@@ -94,12 +91,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Icons.mode_night_outlined,
               color: Colors.amber,
             ),
-            title: Text(
-              context.tr("night_mode"),
-              style: TextStyle(
-                  fontSize:
-                      context.responsiveFontSize(18)), // Responsive font size
-            ),
+            title: Text(context.tr("night_mode")),
             trailing: BlocBuilder<ThemeBloc, ThemeState>(
               builder: (context, state) {
                 final isDarkMode =
@@ -123,12 +115,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Icons.telegram,
               color: Colors.blue,
             ),
-            title: Text(
-              "complains_and_suggestions".tr(),
-              style: TextStyle(
-                  fontSize:
-                      context.responsiveFontSize(18)), // Responsive font size
-            ),
+            title: Text("complains_and_suggestions".tr()),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
           ListTile(
@@ -141,23 +128,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Icons.phone,
               color: Colors.blue,
             ),
-            title: Text(
-              "call_us".tr(),
-              style: TextStyle(
-                  fontSize:
-                      context.responsiveFontSize(18)), 
-            ),
+            title: Text("call_us".tr()),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.share),
-            title: Text(
-              "share_with_friends".tr(),
-              style: TextStyle(
-                  fontSize:
-                      context.responsiveFontSize(18)), 
-            ),
+            title: Text("share_with_friends".tr()),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
           ListTile(
@@ -171,12 +148,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               Icons.info_outline,
               color: Colors.yellow,
             ),
-            title: Text(
-              "about_the_app".tr(),
-              style: TextStyle(
-                  fontSize:
-                      context.responsiveFontSize(18)),
-            ),
+            title: Text("about_the_app".tr()),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
         ],

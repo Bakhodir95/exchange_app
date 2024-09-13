@@ -88,30 +88,33 @@ class HomeWidget extends StatelessWidget {
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "${exchange.title} = CB ${(exchange.price)} ${context.tr("sum")}",
+                      "Central Bank \n1 ${exchange.title} = ${(exchange.price)} ${context.tr("sum")}",
                       style: TextStyle(
-                        fontSize: context.responsiveFontSize(16),
+                        fontSize: context.responsiveFontSize(13),
+                        fontWeight: FontWeight.w800,
                       ),
                     ),
                     Text(
                       "${"sell".tr()}: ${(exchange.sell ?? context.tr("no_data"))} ${context.tr("sum")}",
                       style: TextStyle(
-                        fontSize: context.responsiveFontSize(16),
+                        fontSize: context.responsiveFontSize(13),
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                     Text(
                       "${"buy".tr()}: ${(exchange.buy ?? context.tr("no_data"))} ${context.tr("sum")}",
                       style: TextStyle(
-                        fontSize: context.responsiveFontSize(16),
+                        fontSize: context.responsiveFontSize(13),
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                     Text(
                       "${"updated_at".tr()}: ${exchange.date}",
                       style: TextStyle(
-                        fontSize: context.responsiveFontSize(16),
+                        fontSize: context.responsiveFontSize(13),
                       ),
                     ),
                   ],
