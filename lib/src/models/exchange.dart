@@ -1,4 +1,4 @@
-import 'package:exchange_app/src/utils/extentions.dart';
+import 'package:exchange_app/src/extentions/stringToDate.dart';
 
 class Exchange {
   String title;

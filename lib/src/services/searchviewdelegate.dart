@@ -1,12 +1,14 @@
+import 'package:exchange_app/src/extentions/mediaquery.dart';
 import 'package:flutter/material.dart';
 import 'package:exchange_app/src/models/exchange.dart';
-import 'package:exchange_app/src/ui/screens/converting_screen.dart'; // Import your screen
+import 'package:exchange_app/src/ui/screens/converting_screen.dart';
 
 class ExchangeSearchDelegate extends SearchDelegate<Exchange?> {
   final List<Exchange> exchanges;
 
   ExchangeSearchDelegate(this.exchanges);
-  Map<String, dynamic> flagsMap = {
+
+  static const Map<String, String> flagsMap = {
     "USD": 'assets/images/usd.png',
     "AED": 'assets/images/aed.png',
     "AUD": 'assets/images/aud.png',
@@ -73,7 +75,7 @@ class ExchangeSearchDelegate extends SearchDelegate<Exchange?> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Sell: ${exchange.sell}, Buy: ${exchange.buy}, Central Bank: ${exchange.price}',
+                'Sell: ${exchange.sell ?? "N/A"}, Buy: ${exchange.buy ?? "N/A"}, Central Bank: ${exchange.price ?? "N/A"}',
               ),
             ],
           ),
@@ -83,7 +85,7 @@ class ExchangeSearchDelegate extends SearchDelegate<Exchange?> {
               MaterialPageRoute(
                 builder: (context) => ConvertingScreen(
                   exchange: exchange,
-                  imagePath: flagsMap[exchange.code],
+                  imagePath: flagsMap[exchange.code] ?? 'assets/images/default.png',
                 ),
               ),
             );
@@ -107,13 +109,14 @@ class ExchangeSearchDelegate extends SearchDelegate<Exchange?> {
         final exchange = suggestions[index];
         return ListTile(
           leading: Container(
-            height: 200,
-            width: MediaQuery.of(context).size.width / 3,
+            height: context.screenHeight / 5,
+            width: MediaQuery.of(context).size.width / 4,
             clipBehavior: Clip.hardEdge,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20)),
+                topLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20),
+              ),
             ),
             child: Image.asset(
               flagsMap[exchange.code] ?? 'assets/images/default.png',
@@ -125,7 +128,7 @@ class ExchangeSearchDelegate extends SearchDelegate<Exchange?> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Sell: ${exchange.sell}, Buy: ${exchange.buy}, Central Bank: ${exchange.price}',
+                'Sell: ${exchange.sell ?? "N/A"}, Buy: ${exchange.buy ?? "N/A"}, Central Bank: ${exchange.price ?? "N/A"}',
               ),
             ],
           ),
@@ -135,7 +138,7 @@ class ExchangeSearchDelegate extends SearchDelegate<Exchange?> {
               MaterialPageRoute(
                 builder: (context) => ConvertingScreen(
                   exchange: exchange,
-                  imagePath: flagsMap[exchange.code],
+                  imagePath: flagsMap[exchange.code] ?? 'assets/images/default.png',
                 ),
               ),
             );

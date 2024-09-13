@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:exchange_app/src/extentions/mediaquery.dart';
 import 'package:exchange_app/src/models/exchange.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +53,9 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
       appBar: AppBar(
         title: Text(
           "convert_currency".tr(),
-          style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              fontSize: context.responsiveFontSize(25), 
+              fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
       ),
@@ -62,7 +65,7 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
           children: [
             Expanded(
               child: Container(
-                margin: const EdgeInsets.all(20),
+                margin: const EdgeInsets.all(15), 
                 width: double.infinity,
                 height: double.infinity,
                 decoration: BoxDecoration(
@@ -75,10 +78,11 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
+                          horizontal: 15, vertical: 10), 
                       child: Container(
                         width: double.infinity,
-                        height: 300,
+                        height: context.screenHeight /
+                            4, 
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           image: DecorationImage(
@@ -89,7 +93,7 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: TextFormField(
                         controller: rateController,
                         keyboardType: TextInputType.number,
@@ -117,32 +121,38 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
+                              horizontal: 10, vertical: 10), 
                           child: ElevatedButton(
                             onPressed: _buy,
                             child: Text(
                               "buy".tr(),
-                              style: const TextStyle(fontSize: 20),
+                              style: TextStyle(
+                                fontSize: context.responsiveFontSize(
+                                    18), 
+                              ),
                             ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
+                              horizontal: 10, vertical: 10), 
                           child: ElevatedButton(
                             onPressed: _sell,
                             child: Text(
                               "sell".tr(),
-                              style: const TextStyle(fontSize: 20),
+                              style: TextStyle(
+                                fontSize: context.responsiveFontSize(
+                                    18), 
+                              ),
                             ),
                           ),
                         ),
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Container(
-                        padding: const EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: const Color.fromARGB(255, 144, 240, 147),
@@ -156,8 +166,9 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                                       : "${context.tr('converted_amount')}: 0.00 ${context.tr('sum')}"
                               : context.tr("no_data"),
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 25,
+                          style: TextStyle(
+                            fontSize: context
+                                .responsiveFontSize(22), 
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -165,10 +176,10 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 10),
+                          horizontal: 15, vertical: 10), 
                       child: Container(
                         width: double.infinity,
-                        height: 300,
+                        height: context.screenHeight / 4, 
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
                           image: const DecorationImage(

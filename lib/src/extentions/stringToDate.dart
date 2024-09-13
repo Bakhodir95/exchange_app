@@ -1,3 +1,6 @@
+import 'package:exchange_app/src/extentions/mediaquery.dart';
+import 'package:flutter/material.dart';
+
 extension StringToDateTime on String {
   DateTime? toDateTime() {
     try {
@@ -33,5 +36,32 @@ extension StringToDateTime on String {
     } catch (e) {
       return null; 
     }
+  }
+}
+
+class ResponsiveLayout extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Responsive App',
+          style: TextStyle(fontSize: context.responsiveFontSize(16)), 
+        ),
+      ),
+      body: Center(
+        child: Container(
+          width: context.isDesktop ? 600 : context.percentWidth(80), 
+          height: context.percentHeight(20),  
+          color: Colors.blue,
+          child: Center(
+            child: Text(
+              context.isMobile ? 'Mobile View' : context.isTablet ? 'Tablet View' : 'Desktop View',
+              style: TextStyle(fontSize: context.responsiveFontSize(18)), 
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -1,3 +1,5 @@
+import 'package:exchange_app/src/extentions/mediaquery.dart';
+import 'package:exchange_app/src/extentions/stringToDate.dart';
 import 'package:exchange_app/src/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -70,6 +72,8 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    print(context.screenWidth); // 600
+    print(context.screenHeight); //1066
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -84,49 +88,54 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen>
             ),
           ),
           Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  "Welcome to\nSum Converter App!",
-                  style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    letterSpacing: 1.2,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Welcome to\nSum Converter App!",
+                    style: TextStyle(
+                      fontSize: context.responsiveFontSize(40),
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      letterSpacing: 1.2,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 50),
-                SlideTransition(
-                  position: _slideAnimation,
-                  child: FadeTransition(
-                    opacity: _fadeAnimation,
-                    child: Container(
-                      width: 400,
-                      height: 400,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
-                            blurRadius: 10,
-                            spreadRadius: 5,
-                            offset: const Offset(0, 5),
-                          )
-                        ],
-                      ),
-                      child: ClipOval(
-                        child: Image.asset(
-                          'assets/images/splash.png',
-                          fit: BoxFit.cover,
+                  SizedBox(
+                    height: context.screenHeight / 20,
+                  ),
+                  SlideTransition(
+                    position: _slideAnimation,
+                    child: FadeTransition(
+                      opacity: _fadeAnimation,
+                      child: Container(
+                        width: context.screenWidth * 0.7,
+                        height: context.screenHeight * 0.4,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              blurRadius: 10,
+                              spreadRadius: 5,
+                              offset: const Offset(0, 5),
+                            )
+                          ],
+                        ),
+                        child: ClipOval(
+                          child: Image.asset(
+                            'assets/images/splash.png',
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

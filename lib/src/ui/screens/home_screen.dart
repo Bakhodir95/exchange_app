@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:exchange_app/src/blocs/exchange/exchange_bloc.dart';
 import 'package:exchange_app/src/blocs/exchange/exchange_event.dart';
 import 'package:exchange_app/src/blocs/exchange/exchange_state.dart';
+import 'package:exchange_app/src/extentions/mediaquery.dart';
 import 'package:exchange_app/src/models/exchange.dart';
 import 'package:exchange_app/src/repositories/exchange_repositories.dart';
 import 'package:exchange_app/src/services/exchange_api_service.dart';
@@ -50,11 +51,14 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
             child: AppBar(
               actions: [
                 IconButton(
-                  onPressed: _onSearchButtonPressed, 
+                  onPressed: _onSearchButtonPressed,
                   icon: const Icon(Icons.search),
                 ),
               ],
-              title: Text(context.tr("exchange_rates")),
+              title: Text(
+                context.tr("exchange_rates"),
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               backgroundColor: Colors.transparent,
               elevation: 0,
               centerTitle: true,
@@ -77,19 +81,19 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
 
                 return CarouselSlider.builder(
                   options: CarouselOptions(
-                    height: MediaQuery.of(context).size.height,
+                    height: context.screenHeight,
                     autoPlay: true,
                     autoPlayInterval: const Duration(seconds: 6),
                     enableInfiniteScroll: true,
                     scrollDirection: Axis.vertical,
                     viewportFraction: 0.33,
-                    enlargeCenterPage: true, 
+                    enlargeCenterPage: true,
                   ),
                   itemCount: filteredExchanges.length,
                   itemBuilder: (context, index, realIndex) {
                     return Center(
                       child: Container(
-                        width: MediaQuery.of(context).size.width,
+                        width: context.screenWidth,
                         decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -102,7 +106,7 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
                           ],
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(10),
                           child: HomeWidget(exchange: filteredExchanges[index]),
                         ),
                       ),

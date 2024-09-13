@@ -1,15 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:exchange_app/src/extentions/mediaquery.dart';
 import 'package:exchange_app/src/models/exchange.dart';
 import 'package:exchange_app/src/ui/screens/converting_screen.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class HomeWidget extends StatelessWidget {
   final Exchange exchange;
 
   HomeWidget({super.key, required this.exchange});
 
-  Map<String, dynamic> flagsMap = {
+  static const Map<String, dynamic> flagsMap = {
     "USD": 'assets/images/usd.png',
     "AED": 'assets/images/aed.png',
     "AUD": 'assets/images/aud.png',
@@ -43,17 +43,19 @@ class HomeWidget extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (ctx) => ConvertingScreen(
-                        exchange: exchange,
-                        imagePath: flagsMap[exchange.code],
-                      )));
+            context,
+            MaterialPageRoute(
+              builder: (ctx) => ConvertingScreen(
+                exchange: exchange,
+                imagePath: flagsMap[exchange.code],
+              ),
+            ),
+          );
         },
         child: Container(
           padding: const EdgeInsets.all(20),
           width: double.infinity,
-          height: MediaQuery.of(context).size.height / 4,
+          height: context.screenHeight / 4,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [Colors.green, Colors.lightGreenAccent],
@@ -61,7 +63,9 @@ class HomeWidget extends StatelessWidget {
               end: Alignment.bottomRight,
             ),
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
+              topLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
           ),
           child: Row(
             children: [
@@ -69,17 +73,18 @@ class HomeWidget extends StatelessWidget {
                 clipBehavior: Clip.hardEdge,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20)),
+                    topLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
                 ),
                 child: Image.asset(
                   flagsMap[exchange.code] ?? 'assets/images/default.png',
                   fit: BoxFit.contain,
-                  height: 200,
-                  width: MediaQuery.of(context).size.width / 3,
+                  height: context.screenHeight / 5,
+                  width: context.screenWidth / 3,
                 ),
               ),
-              const SizedBox(width: 20),
+              SizedBox(width: context.screenWidth / 30),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,19 +92,27 @@ class HomeWidget extends StatelessWidget {
                   children: [
                     Text(
                       "${exchange.title} = CB ${(exchange.price)} ${context.tr("sum")}",
-                      style: const TextStyle(fontSize: 16),
+                      style: TextStyle(
+                        fontSize: context.responsiveFontSize(16),
+                      ),
                     ),
                     Text(
                       "${"sell".tr()}: ${(exchange.sell ?? context.tr("no_data"))} ${context.tr("sum")}",
-                      style: const TextStyle(fontSize: 16),
+                      style: TextStyle(
+                        fontSize: context.responsiveFontSize(16),
+                      ),
                     ),
                     Text(
                       "${"buy".tr()}: ${(exchange.buy ?? context.tr("no_data"))} ${context.tr("sum")}",
-                      style: const TextStyle(fontSize: 16),
+                      style: TextStyle(
+                        fontSize: context.responsiveFontSize(16),
+                      ),
                     ),
                     Text(
                       "${"updated_at".tr()}: ${exchange.date}",
-                      style: const TextStyle(fontSize: 16),
+                      style: TextStyle(
+                        fontSize: context.responsiveFontSize(16),
+                      ),
                     ),
                   ],
                 ),
