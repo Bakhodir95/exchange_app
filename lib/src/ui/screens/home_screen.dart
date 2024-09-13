@@ -87,13 +87,12 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
                     enableInfiniteScroll: true,
                     scrollDirection: Axis.vertical,
                     viewportFraction: 0.33,
-                    enlargeCenterPage: true,
                   ),
                   itemCount: filteredExchanges.length,
                   itemBuilder: (context, index, realIndex) {
                     return Center(
                       child: Container(
-                        width: context.screenWidth,
+                        width: double.infinity,
                         decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -106,7 +105,7 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
                           ],
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(6),
                           child: HomeWidget(exchange: filteredExchanges[index]),
                         ),
                       ),

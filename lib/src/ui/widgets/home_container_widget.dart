@@ -55,7 +55,7 @@ class HomeWidget extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(20),
           width: double.infinity,
-          height: context.screenHeight / 4,
+          height: context.screenHeight / 3,
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [Colors.green, Colors.lightGreenAccent],
@@ -70,55 +70,53 @@ class HomeWidget extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                clipBehavior: Clip.hardEdge,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
+                height: context.screenHeight / 7,
+                width: context.screenWidth / 3,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(
+                      flagsMap[exchange.code] ?? 'assets/images/default.png',
+                    ),
+                    fit: BoxFit.cover,
                   ),
-                ),
-                child: Image.asset(
-                  flagsMap[exchange.code] ?? 'assets/images/default.png',
-                  fit: BoxFit.contain,
-                  height: context.screenHeight / 5,
-                  width: context.screenWidth / 3,
+                  borderRadius: BorderRadius.circular(
+                    20,
+                  ),
                 ),
               ),
               SizedBox(width: context.screenWidth / 30),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Central Bank \n1 ${exchange.title} = ${(exchange.price)} ${context.tr("sum")}",
-                      style: TextStyle(
-                        fontSize: context.responsiveFontSize(13),
-                        fontWeight: FontWeight.w800,
-                      ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    "     ${context.tr("central_bank")} \n1 ${exchange.title} = ${(exchange.price)} ${context.tr("sum")}",
+                    style: TextStyle(
+                      fontSize: context.responsiveFontSize(13),
+                      fontWeight: FontWeight.w800,
                     ),
-                    Text(
-                      "${"sell".tr()}: ${(exchange.sell ?? context.tr("no_data"))} ${context.tr("sum")}",
-                      style: TextStyle(
-                        fontSize: context.responsiveFontSize(13),
-                        fontWeight: FontWeight.w500,
-                      ),
+                  ),
+                  Text(
+                    "${"sell".tr()}: ${(exchange.sell ?? context.tr("no_data"))} ${context.tr("sum")}",
+                    style: TextStyle(
+                      fontSize: context.responsiveFontSize(13),
+                      fontWeight: FontWeight.w500,
                     ),
-                    Text(
-                      "${"buy".tr()}: ${(exchange.buy ?? context.tr("no_data"))} ${context.tr("sum")}",
-                      style: TextStyle(
-                        fontSize: context.responsiveFontSize(13),
-                        fontWeight: FontWeight.w500,
-                      ),
+                  ),
+                  Text(
+                    "${"buy".tr()}: ${(exchange.buy ?? context.tr("no_data"))} ${context.tr("sum")}",
+                    style: TextStyle(
+                      fontSize: context.responsiveFontSize(13),
+                      fontWeight: FontWeight.w500,
                     ),
-                    Text(
-                      "${"updated_at".tr()}: ${exchange.date}",
-                      style: TextStyle(
-                        fontSize: context.responsiveFontSize(13),
-                      ),
+                  ),
+                  Text(
+                    "${"updated_at".tr()}: ${exchange.date}",
+                    style: TextStyle(
+                      fontSize: context.responsiveFontSize(13),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),
