@@ -1,13 +1,14 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:exchange_app/src/extentions/mediaquery.dart';
 import 'package:exchange_app/src/models/exchange.dart';
 import 'package:exchange_app/src/ui/screens/converting_screen.dart';
+import 'package:exchange_app/src/ui/widgets/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
 
 class HomeWidget extends StatelessWidget {
   final Exchange exchange;
 
-  HomeWidget({super.key, required this.exchange});
+  const HomeWidget({super.key, required this.exchange});
 
   static const Map<String, dynamic> flagsMap = {
     "USD": 'assets/images/usd.png',
@@ -38,8 +39,9 @@ class HomeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = SizeUtils.bodyWidth(context);
     return Padding(
-      padding: const EdgeInsets.all(15),
+      padding: EdgeInsets.all(10.w),
       child: InkWell(
         onTap: () {
           Navigator.push(
@@ -52,75 +54,157 @@ class HomeWidget extends StatelessWidget {
             ),
           );
         },
-        child: Container(
-          padding: const EdgeInsets.all(20),
-          width: double.infinity,
-          height: context.screenHeight / 3,
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.green, Colors.lightGreenAccent],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
+        child: screenWidth < 800
+            ? mobileHomeContainer(context)
+            : desktopHomeContainer(context),
+      ),
+    );
+  }
+
+  Widget desktopHomeContainer(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(20.w),
+      width: double.infinity.w,
+      height: double.infinity.h,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.green, Colors.lightGreenAccent],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            clipBehavior: Clip.hardEdge,
+            width: 150.w,
+            height: 150.w,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.r),
+              image: DecorationImage(
+                image: AssetImage(
+                  flagsMap[exchange.code] ?? 'assets/images/default.png',
+                ),
+                fit: BoxFit.contain,
+              ),
             ),
           ),
-          child: Row(
+          SizedBox(width: 20.w), 
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: context.screenHeight / 7,
-                width: context.screenWidth / 3,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                      flagsMap[exchange.code] ?? 'assets/images/default.png',
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.circular(
-                    20,
-                  ),
+              Text(
+                "${context.tr("central_bank")} \n1 ${exchange.title} = ${(exchange.price)} ${context.tr("sum")}",
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
-              SizedBox(width: context.screenWidth / 30),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "     ${context.tr("central_bank")} \n1 ${exchange.title} = ${(exchange.price)} ${context.tr("sum")}",
-                    style: TextStyle(
-                      fontSize: context.responsiveFontSize(13),
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  Text(
-                    "${"sell".tr()}: ${(exchange.sell ?? context.tr("no_data"))} ${context.tr("sum")}",
-                    style: TextStyle(
-                      fontSize: context.responsiveFontSize(13),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Text(
-                    "${"buy".tr()}: ${(exchange.buy ?? context.tr("no_data"))} ${context.tr("sum")}",
-                    style: TextStyle(
-                      fontSize: context.responsiveFontSize(13),
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Text(
-                    "${"updated_at".tr()}: ${exchange.date}",
-                    style: TextStyle(
-                      fontSize: context.responsiveFontSize(13),
-                    ),
-                  ),
-                ],
+              Text(
+                "${"sell".tr()}: ${(exchange.sell ?? context.tr("no_data"))} ${context.tr("sum")}",
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                "${"buy".tr()}: ${(exchange.buy ?? context.tr("no_data"))} ${context.tr("sum")}",
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                "${"updated_at".tr()}:\n${exchange.date}",
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
               ),
             ],
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget mobileHomeContainer(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(20.w),
+      width: double.infinity,
+      height: 300.h,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.green, Colors.lightGreenAccent],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+            clipBehavior: Clip.hardEdge,
+            width: 150.w,
+            height: 150.w,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.r),
+              image: DecorationImage(
+                image: AssetImage(
+                  flagsMap[exchange.code] ?? 'assets/images/default.png',
+                ),
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "${context.tr("central_bank")}\n1 ${exchange.title} = ${(exchange.price)} ${context.tr("sum")}",
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w800,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                "${"sell".tr()}: ${(exchange.sell ?? context.tr("no_data"))} ${context.tr("sum")}",
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                "${"buy".tr()}: ${(exchange.buy ?? context.tr("no_data"))} ${context.tr("sum")}",
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                "${"updated_at".tr()}:\n${exchange.date}",
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

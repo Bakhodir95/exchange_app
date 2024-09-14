@@ -1,5 +1,6 @@
-import 'package:exchange_app/src/extentions/mediaquery.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil package
 import 'package:exchange_app/src/models/exchange.dart';
 import 'package:exchange_app/src/ui/screens/converting_screen.dart';
 
@@ -39,7 +40,7 @@ class ExchangeSearchDelegate extends SearchDelegate<Exchange?> {
   List<Widget>? buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: const Icon(Icons.clear),
+        icon: Icon(Icons.clear, size: 24.sp),
         onPressed: () {
           query = '';
         },
@@ -50,7 +51,7 @@ class ExchangeSearchDelegate extends SearchDelegate<Exchange?> {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-      icon: const Icon(Icons.arrow_back),
+      icon: Icon(Icons.arrow_back, size: 24.sp), 
       onPressed: () {
         close(context, null);
       },
@@ -70,12 +71,16 @@ class ExchangeSearchDelegate extends SearchDelegate<Exchange?> {
       itemBuilder: (context, index) {
         final exchange = suggestions[index];
         return ListTile(
-          title: Text(exchange.code),
-          subtitle: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          title: Text(exchange.code,
+              style:
+                  TextStyle(fontSize: 18.sp)), 
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Sell: ${exchange.sell ?? "N/A"}, Buy: ${exchange.buy ?? "N/A"}, Central Bank: ${exchange.price ?? "N/A"}',
+                'Sell: ${exchange.sell ?? "no_data"}, Buy: ${exchange.buy ?? "no_data"}, Central Bank: ${exchange.price}',
+                style:
+                    TextStyle(fontSize: 14.sp), 
               ),
             ],
           ),
@@ -85,7 +90,8 @@ class ExchangeSearchDelegate extends SearchDelegate<Exchange?> {
               MaterialPageRoute(
                 builder: (context) => ConvertingScreen(
                   exchange: exchange,
-                  imagePath: flagsMap[exchange.code] ?? 'assets/images/default.png',
+                  imagePath:
+                      flagsMap[exchange.code] ?? 'assets/images/default.png',
                 ),
               ),
             );
@@ -109,26 +115,38 @@ class ExchangeSearchDelegate extends SearchDelegate<Exchange?> {
         final exchange = suggestions[index];
         return ListTile(
           leading: Container(
-            height: context.screenHeight / 5,
-            width: MediaQuery.of(context).size.width / 4,
+            height: 60.h, 
+            width: 60.w, 
             clipBehavior: Clip.hardEdge,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-              ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(
+                  10.r), 
             ),
             child: Image.asset(
               flagsMap[exchange.code] ?? 'assets/images/default.png',
-              fit: BoxFit.contain,
+              fit: BoxFit.cover,
             ),
           ),
-          title: Text(exchange.code),
-          subtitle: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          title: Text(exchange.code,
+              style:
+                  TextStyle(fontSize: 16.sp)), 
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Sell: ${exchange.sell ?? "N/A"}, Buy: ${exchange.buy ?? "N/A"}, Central Bank: ${exchange.price ?? "N/A"}',
+                '${context.tr("central_bank")}: ${exchange.price}${context.tr("sum")}',
+                style:
+                    TextStyle(fontSize: 14.sp), 
+              ),
+              Text(
+                '${context.tr("sell")}: ${exchange.sell ?? context.tr("no_data")}',
+                style:
+                    TextStyle(fontSize: 14.sp), 
+              ),
+              Text(
+                '${context.tr("buy")}: ${exchange.buy ?? context.tr("no_data")}',
+                style:
+                    TextStyle(fontSize: 14.sp), 
               ),
             ],
           ),
@@ -138,7 +156,8 @@ class ExchangeSearchDelegate extends SearchDelegate<Exchange?> {
               MaterialPageRoute(
                 builder: (context) => ConvertingScreen(
                   exchange: exchange,
-                  imagePath: flagsMap[exchange.code] ?? 'assets/images/default.png',
+                  imagePath:
+                      flagsMap[exchange.code] ?? 'assets/images/default.png',
                 ),
               ),
             );

@@ -10,8 +10,10 @@ import 'package:exchange_app/src/services/exchange_api_service.dart';
 import 'package:exchange_app/src/services/searchviewdelegate.dart';
 import 'package:exchange_app/src/ui/screens/settings_screen.dart';
 import 'package:exchange_app/src/ui/widgets/home_container_widget.dart';
+import 'package:exchange_app/src/ui/widgets/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil package
 
 class ExchangeRateScreen extends StatefulWidget {
   const ExchangeRateScreen({super.key});
@@ -32,6 +34,8 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = SizeUtils.bodyWidth(context);
+
     return BlocProvider(
       create: (context) => ExchangeRateBloc(
         repository: ExchangeRateRepository(apiService: ExchangeApiService()),
@@ -39,7 +43,7 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
       child: Scaffold(
         drawer: const SettingsScreen(),
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(56.0),
+          preferredSize: Size.fromHeight(56.h),
           child: Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -52,12 +56,12 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
               actions: [
                 IconButton(
                   onPressed: _onSearchButtonPressed,
-                  icon: const Icon(Icons.search),
+                  icon: Icon(Icons.search, size: 24.sp),
                 ),
               ],
               title: Text(
                 context.tr("exchange_rates"),
-                style: const TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.sp),
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
@@ -66,7 +70,7 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
           ),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.w),
           child: BlocBuilder<ExchangeRateBloc, ExchangeRateState>(
             builder: (context, state) {
               if (state is ExchangeRateLoading) {
@@ -79,41 +83,13 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
 
                 filteredExchanges.sort((a, b) => a.sell!.compareTo(b.sell!));
 
-                return CarouselSlider.builder(
-                  options: CarouselOptions(
-                    height: context.screenHeight,
-                    autoPlay: true,
-                    autoPlayInterval: const Duration(seconds: 6),
-                    enableInfiniteScroll: true,
-                    scrollDirection: Axis.vertical,
-                    viewportFraction: 0.33,
-                  ),
-                  itemCount: filteredExchanges.length,
-                  itemBuilder: (context, index, realIndex) {
-                    return Center(
-                      child: Container(
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black12,
-                              blurRadius: 8.0,
-                              spreadRadius: 2.0,
-                            ),
-                          ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(6),
-                          child: HomeWidget(exchange: filteredExchanges[index]),
-                        ),
-                      ),
-                    );
-                  },
-                );
+                return screenWidth < 601
+                    ? mobCarousel(context, filteredExchanges)
+                    : descCarousel(context, filteredExchanges);
               } else if (state is ExchangeRateError) {
-                return Center(child: Text('Error: ${state.message}'));
+                return Center(
+                    child: Text('Error: ${state.message}',
+                        style: TextStyle(fontSize: 18.sp)));
               } else {
                 return const Center(child: Text('Unknown state'));
               }
@@ -123,4 +99,77 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
       ),
     );
   }
+}
+
+Widget mobCarousel(BuildContext context, List<Exchange> filteredExchanges) {
+  return CarouselSlider.builder(
+    options: CarouselOptions(
+      height: MediaQuery.of(context).size.height * 3,
+      autoPlay: true,
+      autoPlayInterval: const Duration(seconds: 6),
+      enableInfiniteScroll: true,
+      scrollDirection: Axis.vertical,
+      viewportFraction: 0.33,
+    ),
+    itemCount: filteredExchanges.length,
+    itemBuilder: (context, index, realIndex) {
+      return Center(
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10.r),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 8.0,
+                spreadRadius: 2.0,
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(6.w),
+            child: HomeWidget(exchange: filteredExchanges[index]),
+          ),
+        ),
+      );
+    },
+  );
+}
+
+Widget descCarousel(BuildContext context, List<Exchange> filteredExchanges) {
+  return CarouselSlider.builder(
+    options: CarouselOptions(
+      height: MediaQuery.of(context).size.height,
+      autoPlay: true,
+      autoPlayInterval: const Duration(seconds: 6),
+      enableInfiniteScroll: true,
+      scrollDirection: Axis.vertical,
+      viewportFraction: 1,
+    ),
+    itemCount: filteredExchanges.length,
+    itemBuilder: (context, index, realIndex) {
+      return Center(
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10.r),
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 8.0,
+                spreadRadius: 2.0,
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(6.w),
+            child: HomeWidget(exchange: filteredExchanges[index]),
+          ),
+        ),
+      );
+    },
+  );
 }

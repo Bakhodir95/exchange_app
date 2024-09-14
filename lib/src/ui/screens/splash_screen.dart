@@ -1,5 +1,4 @@
 import 'package:exchange_app/src/extentions/mediaquery.dart';
-import 'package:exchange_app/src/extentions/stringToDate.dart';
 import 'package:exchange_app/src/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +27,7 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen>
     _fadeAnimation =
         Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
       parent: _animationController,
-      curve: Curves.fastEaseInToSlowEaseOut,
+      curve: Curves.easeInOut, // Adjusted curve for smooth fading
     ));
 
     _slideAnimation = TweenSequence<Offset>([
@@ -37,7 +36,7 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen>
           begin: const Offset(-1.5, 0),
           end: const Offset(0, 0),
         ).chain(CurveTween(curve: Curves.easeInOut)),
-        weight: 50, //
+        weight: 50,
       ),
       TweenSequenceItem(
         tween: ConstantTween<Offset>(const Offset(0, 0)),
@@ -59,7 +58,6 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen>
 
   _navigateToHome() async {
     await Future.delayed(const Duration(seconds: 3));
-
     Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (ctx) => const ExchangeRateScreen()));
   }
@@ -72,8 +70,9 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    print(context.screenWidth); // 600
-    print(context.screenHeight); //1066
+    print(context.screenWidth); // Responsive width check
+    print(context.screenHeight); // Responsive height check
+
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -96,7 +95,8 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen>
                   Text(
                     "Welcome to\nSum Converter App!",
                     style: TextStyle(
-                      fontSize: context.responsiveFontSize(40),
+                      fontSize: context
+                          .responsiveFontSize(40), 
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       letterSpacing: 1.2,
@@ -104,15 +104,14 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen>
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
-                    height: context.screenHeight / 20,
+                    height: context.screenHeight / 20, 
                   ),
                   SlideTransition(
                     position: _slideAnimation,
                     child: FadeTransition(
                       opacity: _fadeAnimation,
                       child: Container(
-                        width: context.screenWidth * 0.7,
-                        height: context.screenHeight * 0.4,
+                        height: context.screenHeight * 0.3,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.white,
@@ -122,7 +121,7 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen>
                               blurRadius: 10,
                               spreadRadius: 5,
                               offset: const Offset(0, 5),
-                            )
+                            ),
                           ],
                         ),
                         child: ClipOval(

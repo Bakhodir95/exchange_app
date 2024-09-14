@@ -4,11 +4,12 @@ import 'package:exchange_app/src/blocs/exchange/exchange_event.dart';
 import 'package:exchange_app/src/blocs/theme/theme_block.dart';
 import 'package:exchange_app/src/blocs/theme/theme_event.dart';
 import 'package:exchange_app/src/blocs/theme/theme_state.dart';
-import 'package:exchange_app/src/extentions/mediaquery.dart';
-import 'package:exchange_app/src/extentions/stringToDate.dart';
 import 'package:exchange_app/src/ui/screens/about_app_screen.dart';
+import 'package:exchange_app/src/ui/widgets/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Ensure ScreenUtil is imported for responsive design
+import 'package:share_plus/share_plus.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -18,8 +19,13 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  void _shareApp(String urlAddress) {
+    Share.share('Check out this amazing app: $urlAddress');
+  }
+
   @override
   Widget build(BuildContext context) {
+    double screenWidth = SizeUtils.bodyWidth(context);
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -33,23 +39,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const CircleAvatar(
                   radius: 45,
                   backgroundImage: AssetImage('assets/images/splash.png'),
                 ),
                 SizedBox(
-                  height: context.screenHeight / 100,
+                  height: 10.h,
                 ),
-                Expanded(
-                  child: Text(
-                    context.tr("settings"),
-                    style: TextStyle(
-                      fontSize: context.responsiveFontSize(24),
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                Text(
+                  context.tr("settings"),
+                  style: TextStyle(
+                    fontSize: screenWidth < 601 ? 24.sp : 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
               ],
@@ -62,7 +65,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               color: Color.fromARGB(255, 53, 175, 57),
             ),
             trailing: DropdownButton<String>(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(10.r), // Responsive radius
               dropdownColor: const Color.fromARGB(255, 84, 245, 89),
               value: context.locale.languageCode,
               items: const [
@@ -110,6 +113,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ListTile(
             onTap: () async {
               context.read<ExchangeRateBloc>().add(LaunchTelegram());
+              _shareApp("https://currency_exchange.com");
             },
             leading: const Icon(
               Icons.telegram,
@@ -132,7 +136,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              context
+                  .read<ExchangeRateBloc>()
+                  .add(ShareApp(urlAddress: 'https://currency_exchange.com'));
+            },
             leading: const Icon(Icons.share),
             title: Text("share_with_friends".tr()),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
