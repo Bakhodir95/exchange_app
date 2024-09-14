@@ -113,7 +113,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ListTile(
             onTap: () async {
               context.read<ExchangeRateBloc>().add(LaunchTelegram());
-              _shareApp("https://currency_exchange.com");
+              // _shareApp("https://currency_exchange.com");
             },
             leading: const Icon(
               Icons.telegram,

@@ -3,7 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:exchange_app/src/blocs/exchange/exchange_bloc.dart';
 import 'package:exchange_app/src/blocs/exchange/exchange_event.dart';
 import 'package:exchange_app/src/blocs/exchange/exchange_state.dart';
-import 'package:exchange_app/src/extentions/mediaquery.dart';
 import 'package:exchange_app/src/models/exchange.dart';
 import 'package:exchange_app/src/repositories/exchange_repositories.dart';
 import 'package:exchange_app/src/services/exchange_api_service.dart';
