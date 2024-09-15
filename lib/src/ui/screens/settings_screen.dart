@@ -8,8 +8,7 @@ import 'package:exchange_app/src/ui/screens/about_app_screen.dart';
 import 'package:exchange_app/src/ui/widgets/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart'; // Ensure ScreenUtil is imported for responsive design
-import 'package:share_plus/share_plus.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -19,10 +18,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  void _shareApp(String urlAddress) {
-    Share.share('Check out this amazing app: $urlAddress');
-  }
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = SizeUtils.bodyWidth(context);
