@@ -171,12 +171,12 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                          width:
-                              10), // Add spacing between TextFormField and button
+                      SizedBox(width: 10),
                       GestureDetector(
                         onTap: rateController.clear,
                         child: Container(
+                          alignment: Alignment.center,
+                          height: 60.h,
                           padding: EdgeInsets.all(12.w),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.r),
@@ -229,6 +229,8 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                           child: GestureDetector(
                             onTap: _buy,
                             child: Container(
+                              alignment: Alignment.center,
+                              height: 60.h,
                               padding: EdgeInsets.all(12.w),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.r),
@@ -249,6 +251,8 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               child: Container(
+                                alignment: Alignment.center,
+                                height: 60.h,
                                 padding: EdgeInsets.all(12.w),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
@@ -270,6 +274,8 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               child: Container(
+                                alignment: Alignment.center,
+                                height: 60.h,
                                 padding: EdgeInsets.all(12.w),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
