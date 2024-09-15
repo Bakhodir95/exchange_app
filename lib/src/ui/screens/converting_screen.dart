@@ -23,6 +23,7 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
   double convertedAmountBuy = 0;
   bool isSellConversion = false;
   bool isBuyConversion = false;
+  bool isSellSum = false;
 
   @override
   void dispose() {
@@ -34,11 +35,14 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
     if (_formKey.currentState!.validate()) {
       setState(() {
         final rate = double.parse(rateController.text);
-        final sellRate = widget.exchange.sell ?? 1;
-        convertedAmountSell = rate * sellRate;
 
-        isSellConversion = true;
-        isBuyConversion = false;
+        final buyRate = widget.exchange.sell ?? 1;
+
+        convertedAmountBuy = rate * buyRate;
+
+        isBuyConversion = true;
+        isSellConversion = false;
+        isSellSum = false;
       });
     }
   }
@@ -47,11 +51,30 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
     if (_formKey.currentState!.validate()) {
       setState(() {
         final rate = double.parse(rateController.text);
-        final buyRate = widget.exchange.buy ?? 1;
-        convertedAmountBuy = rate * buyRate;
 
-        isBuyConversion = true;
+        final sellRate = widget.exchange.buy ?? 1;
+
+        convertedAmountSell = rate * sellRate;
+
+        isSellConversion = true;
+        isBuyConversion = false;
+        isSellSum = false;
+      });
+    }
+  }
+
+  void _sellSum() {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        final rate = double.parse(rateController.text);
+
+        final buyRate = widget.exchange.buy ?? 1;
+
+        convertedAmountBuy = rate / buyRate;
+
+        isSellSum = true;
         isSellConversion = false;
+        isBuyConversion = false;
       });
     }
   }
@@ -68,154 +91,143 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                screenWidth < 601
-                    ? Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          Widget content = Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  screenWidth < 601
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: 400.w,
+                            height: 200.h,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(widget.imagePath),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                        )
+                      : flagsDesktop(widget.imagePath),
+                  screenWidth < 601
+                      ? Container(
                           width: 400.w,
                           height: 200.h,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             image: DecorationImage(
-                              image: AssetImage(widget.imagePath),
+                              image: AssetImage("assets/images/uzb.png"),
                               fit: BoxFit.contain,
                             ),
                           ),
-                        ),
-                      )
-                    : flagsDesktop(widget.imagePath),
-                screenWidth < 601
-                    ? Container(
-                        width: 400.w,
-                        height: 200.h,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage("assets/images/uzb.png"),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      )
-                    : const SizedBox(),
-                SizedBox(height: 15.h),
-                Container(
-                  alignment: Alignment.center,
-                  width: screenWidth,
-                  padding: EdgeInsets.all(12.w),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.r),
-                    color: const Color.fromARGB(255, 28, 227, 35),
-                  ),
-                  child: Text(
-                    "1 ${widget.exchange.title} = ${(widget.exchange.price)} ${context.tr("sum")}",
-                    style: TextStyle(fontSize: 18.sp),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: TextFormField(
-                    controller: rateController,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      labelText: 'enter_amount'.tr(),
-                      prefixIcon: const Icon(Icons.edit_outlined),
-                      border: const OutlineInputBorder(),
+                        )
+                      : const SizedBox(),
+                  SizedBox(height: 15.h),
+                  Container(
+                    alignment: Alignment.center,
+                    width: screenWidth,
+                    padding: EdgeInsets.all(12.w),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.r),
+                      color: const Color.fromARGB(255, 28, 227, 35),
                     ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return context.tr('please_enter_an_amount');
-                      }
-                      if (double.tryParse(value) == null) {
-                        return context.tr('please_enter_a_valid_number');
-                      }
-                      if (double.parse(value) <= 0) {
-                        return context.tr('please_enter_a_positive_number');
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                Container(
-                  width: screenWidth,
-                  height: 150.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.r),
-                    color: const Color.fromARGB(255, 28, 227, 35),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(15.w),
                     child: Text(
-                      widget.exchange.buy != null
-                          ? isSellConversion
-                              ? "${context.tr('converted_amount')}: \n${convertedAmountSell.toStringAsFixed(2)} ${context.tr('sum')}"
-                              : isBuyConversion
-                                  ? "${context.tr('converted_amount')}: \n${convertedAmountBuy.toStringAsFixed(2)} ${context.tr('sum')}"
-                                  : "${context.tr('converted_amount')}: 0.00 ${context.tr('sum')}"
-                          : context.tr("no_data"),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: screenWidth < 600 ? 16.sp : 13.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      "1 ${widget.exchange.title} = ${(widget.exchange.price)} ${context.tr("sum")}",
+                      style: TextStyle(fontSize: 18.sp),
                     ),
                   ),
-                ),
-                SizedBox(height: 15.h),
-                Container(
-                  width: double.infinity,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  Row(
                     children: [
                       Expanded(
-                        child: GestureDetector(
-                          onTap: _buy,
-                          child: Container(
-                            padding: EdgeInsets.all(12.w),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.r),
-                              color: const Color.fromARGB(255, 28, 227, 35),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: TextFormField(
+                            controller: rateController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: 'enter_amount'.tr(),
+                              prefixIcon: const Icon(Icons.edit_outlined),
+                              border: const OutlineInputBorder(),
                             ),
-                            child: Text(
-                              "buy".tr(),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 18.sp),
-                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return context.tr('please_enter_an_amount');
+                              }
+                              if (double.tryParse(value) == null) {
+                                return context
+                                    .tr('please_enter_a_valid_number');
+                              }
+                              if (double.parse(value) <= 0) {
+                                return context
+                                    .tr('please_enter_a_positive_number');
+                              }
+                              return null;
+                            },
                           ),
                         ),
                       ),
-                      SizedBox(width: 10.w),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: rateController.clear,
-                          child: Container(
-                            padding: EdgeInsets.all(12.w),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.r),
-                              color: const Color.fromARGB(255, 28, 227, 35),
-                            ),
-                            child: Text(
-                              "clear".tr(),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 18.sp),
-                            ),
+                      SizedBox(
+                          width:
+                              10), // Add spacing between TextFormField and button
+                      GestureDetector(
+                        onTap: rateController.clear,
+                        child: Container(
+                          padding: EdgeInsets.all(12.w),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.r),
+                            color: const Color.fromARGB(255, 28, 227, 35),
+                          ),
+                          child: Text(
+                            "clear".tr(),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18.sp),
                           ),
                         ),
                       ),
-                      SizedBox(width: 10.w),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: _sell,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
+                    ],
+                  ),
+                  SizedBox(height: 10.h),
+                  Container(
+                    alignment: Alignment.center,
+                    width: screenWidth,
+                    height: screenWidth < 601 ? 100.h : 150.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.r),
+                      color: const Color.fromARGB(255, 28, 227, 35),
+                    ),
+                    child: Padding(
+                        padding: EdgeInsets.all(15.w),
+                        child: Text(
+                          widget.exchange.buy != null
+                              ? isSellConversion
+                                  ? "${context.tr('converted_amount')}: \n${convertedAmountSell.toStringAsFixed(2)} ${context.tr('sum')}"
+                                  : isBuyConversion
+                                      ? "${context.tr('converted_amount')}: \n${convertedAmountBuy.toStringAsFixed(2)} ${context.tr('sum')}"
+                                      : isSellSum
+                                          ? "${context.tr('converted_amount')}: \n${convertedAmountBuy.toStringAsFixed(2)} ${widget.exchange.title}"
+                                          : "${context.tr('converted_amount')}: 0.00"
+                              : context.tr("no_data"),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: screenWidth < 601 ? 20.sp : 13.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )),
+                  ),
+                  SizedBox(height: 15.h),
+                  Container(
+                    width: double.infinity,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: _buy,
                             child: Container(
                               padding: EdgeInsets.all(12.w),
                               decoration: BoxDecoration(
@@ -223,21 +235,67 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                                 color: const Color.fromARGB(255, 28, 227, 35),
                               ),
                               child: Text(
-                                "sell".tr(),
+                                "buy".tr(),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(fontSize: 18.sp),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                        SizedBox(width: 10.w),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: _sell,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Container(
+                                padding: EdgeInsets.all(12.w),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.r),
+                                  color: const Color.fromARGB(255, 28, 227, 35),
+                                ),
+                                child: Text(
+                                  "sell".tr(),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 18.sp),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 10.w),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: _sellSum,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Container(
+                                padding: EdgeInsets.all(12.w),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.r),
+                                  color: const Color.fromARGB(255, 28, 227, 35),
+                                ),
+                                child: Text(
+                                  "sell_sum".tr(),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 18.sp),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ),
+          );
+
+          return constraints.maxWidth > 601
+              ? SingleChildScrollView(child: content)
+              : content;
+        },
       ),
     );
   }

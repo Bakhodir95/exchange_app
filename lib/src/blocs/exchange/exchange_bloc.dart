@@ -43,9 +43,9 @@ class ExchangeRateBloc extends Bloc<ExchangeRateEvent, ExchangeRateState> {
   Future<void> _launchTelegram(
       LaunchTelegram event, Emitter<ExchangeRateState> emit) async {
     try {
-      const url = 'https://t.me/bakhodir1995';
-      if (await canLaunch(url)) {
-        await launch(url);
+      final Uri url = Uri.parse('https://t.me/bakhodir1995');
+      if (await canLaunchUrl(url)) {
+        await launchUrl(url);
       } else {
         throw 'Could not launch $url';
       }
