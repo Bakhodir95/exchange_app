@@ -102,7 +102,7 @@ class HomeWidget extends StatelessWidget {
               Text(
                 "${context.tr("central_bank")} \n1 ${exchange.title} = ${(exchange.price)} ${context.tr("sum")}",
                 style: TextStyle(
-                  fontSize: 13.sp,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w800,
                 ),
               ),
