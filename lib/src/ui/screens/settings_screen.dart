@@ -108,7 +108,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ListTile(
             onTap: () async {
               context.read<ExchangeRateBloc>().add(LaunchTelegram());
-             
             },
             leading: const Icon(
               Icons.telegram,
@@ -130,16 +129,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
             title: Text("call_us".tr()),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
           ),
-          ListTile(
-            onTap: () {
-              context
-                  .read<ExchangeRateBloc>()
-                  .add(ShareApp(urlAddress: 'https://currency_exchange.com'));
-            },
-            leading: const Icon(Icons.share),
-            title: Text("share_with_friends".tr()),
-            trailing: const Icon(Icons.arrow_forward_ios_rounded),
-          ),
+          // ListTile(
+          //   onTap: () {
+          //     context
+          //         .read<ExchangeRateBloc>()
+          //         .add(ShareApp(urlAddress: 'https://currency_exchange.com'));
+          //   },
+          //   leading: const Icon(Icons.share),
+          //   title: Text("share_with_friends".tr()),
+          //   trailing: const Icon(Icons.arrow_forward_ios_rounded),
+          // ),
           ListTile(
             onTap: () {
               Navigator.push(

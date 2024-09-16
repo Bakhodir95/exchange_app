@@ -98,7 +98,7 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   screenWidth < 601
                       ? Padding(
@@ -141,157 +141,163 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                       style: TextStyle(fontSize: 18.sp),
                     ),
                   ),
-                  Row(
+                  Column(
                     children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: TextFormField(
-                            controller: rateController,
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              labelText: 'enter_amount'.tr(),
-                              prefixIcon: const Icon(Icons.edit_outlined),
-                              border: const OutlineInputBorder(),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: TextFormField(
+                                controller: rateController,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  labelText: 'enter_amount'.tr(),
+                                  prefixIcon: const Icon(Icons.edit_outlined),
+                                  border: const OutlineInputBorder(),
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return context.tr('please_enter_an_amount');
+                                  }
+                                  if (double.tryParse(value) == null) {
+                                    return context
+                                        .tr('please_enter_a_valid_number');
+                                  }
+                                  if (double.parse(value) <= 0) {
+                                    return context
+                                        .tr('please_enter_a_positive_number');
+                                  }
+                                  return null;
+                                },
+                              ),
                             ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return context.tr('please_enter_an_amount');
-                              }
-                              if (double.tryParse(value) == null) {
-                                return context
-                                    .tr('please_enter_a_valid_number');
-                              }
-                              if (double.parse(value) <= 0) {
-                                return context
-                                    .tr('please_enter_a_positive_number');
-                              }
-                              return null;
-                            },
                           ),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      GestureDetector(
-                        onTap: rateController.clear,
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: 60.h,
-                          padding: EdgeInsets.all(12.w),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.r),
-                            color: const Color.fromARGB(255, 28, 227, 35),
-                          ),
-                          child: Text(
-                            "clear".tr(),
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 18.sp),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10.h),
-                  Container(
-                    alignment: Alignment.center,
-                    width: screenWidth,
-                    height: screenWidth < 601 ? 100.h : 150.h,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.r),
-                      color: const Color.fromARGB(255, 28, 227, 35),
-                    ),
-                    child: Padding(
-                        padding: EdgeInsets.all(15.w),
-                        child: Text(
-                          widget.exchange.buy != null
-                              ? isSellConversion
-                                  ? "${context.tr('converted_amount')}: \n${convertedAmountSell.toStringAsFixed(2)} ${context.tr('sum')}"
-                                  : isBuyConversion
-                                      ? "${context.tr('converted_amount')}: \n${convertedAmountBuy.toStringAsFixed(2)} ${context.tr('sum')}"
-                                      : isSellSum
-                                          ? "${context.tr('converted_amount')}: \n${convertedAmountBuy.toStringAsFixed(2)} ${widget.exchange.title}"
-                                          : "${context.tr('converted_amount')}: 0.00"
-                              : context.tr("no_data"),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: screenWidth < 601 ? 20.sp : 13.sp,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )),
-                  ),
-                  SizedBox(height: 15.h),
-                  Container(
-                    width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: _buy,
+                          SizedBox(width: 15),
+                          GestureDetector(
+                            onTap: rateController.clear,
                             child: Container(
                               alignment: Alignment.center,
-                              height: 60.h,
-                              padding: EdgeInsets.all(12.w),
+                              padding: EdgeInsets.all(15.w),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.r),
                                 color: const Color.fromARGB(255, 28, 227, 35),
                               ),
                               child: Text(
-                                "buy".tr(),
+                                "clear".tr(),
                                 textAlign: TextAlign.center,
-                                style: TextStyle(fontSize: 18.sp),
+                                style: TextStyle(
+                                    fontSize: screenWidth < 601 ? 22.sp : 18),
                               ),
                             ),
                           ),
+                        ],
+                      ),
+                      SizedBox(height: 10.h),
+                      Container(
+                        alignment: Alignment.center,
+                        width: screenWidth,
+                        // height: screenWidth < 601 ? 100.h : 150.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          color: const Color.fromARGB(255, 28, 227, 35),
                         ),
-                        SizedBox(width: 10.w),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: _sell,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Padding(
+                            padding: EdgeInsets.all(20.w),
+                            child: Text(
+                              widget.exchange.buy != null
+                                  ? isSellConversion
+                                      ? "${context.tr('converted_amount')}: \n${convertedAmountSell.toStringAsFixed(2)} ${context.tr('sum')}"
+                                      : isBuyConversion
+                                          ? "${context.tr('converted_amount')}: \n${convertedAmountBuy.toStringAsFixed(2)} ${context.tr('sum')}"
+                                          : isSellSum
+                                              ? "${context.tr('converted_amount')}: \n${convertedAmountBuy.toStringAsFixed(2)} ${widget.exchange.title}"
+                                              : "${context.tr('converted_amount')}: 0.00"
+                                  : context.tr("no_data"),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: screenWidth < 601 ? 20.sp : 13.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )),
+                      ),
+                      SizedBox(height: 15.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: _buy,
                               child: Container(
                                 alignment: Alignment.center,
-                                height: 60.h,
                                 padding: EdgeInsets.all(12.w),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
                                   color: const Color.fromARGB(255, 28, 227, 35),
                                 ),
                                 child: Text(
-                                  "sell".tr(),
+                                  "buy".tr(),
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 18.sp),
+                                  style: TextStyle(
+                                      fontSize: screenWidth < 601 ? 22.sp : 13),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(width: 10.w),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: _sellSum,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: Container(
-                                alignment: Alignment.center,
-                                height: 60.h,
-                                padding: EdgeInsets.all(12.w),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.r),
-                                  color: const Color.fromARGB(255, 28, 227, 35),
-                                ),
-                                child: Text(
-                                  "sell_sum".tr(),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: 18.sp),
+                          SizedBox(width: 10.w),
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: _sell,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.all(12.w),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.r),
+                                    color:
+                                        const Color.fromARGB(255, 28, 227, 35),
+                                  ),
+                                  child: Text(
+                                    "sell".tr(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize:
+                                            screenWidth < 601 ? 22.sp : 13),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
+                          SizedBox(width: 10.w),
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: _sellSum,
+                              child: Padding(
+                                padding: const EdgeInsets.all(12),
+                                child: Container(
+                                  padding: EdgeInsets.all(12.w),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.r),
+                                    color:
+                                        const Color.fromARGB(255, 28, 227, 35),
+                                  ),
+                                  child: Text(
+                                    "sell_sum".tr(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize:
+                                            screenWidth < 601 ? 18.sp : 13),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
