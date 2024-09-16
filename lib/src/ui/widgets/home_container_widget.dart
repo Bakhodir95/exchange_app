@@ -94,7 +94,7 @@ class HomeWidget extends StatelessWidget {
               ),
             ),
           ),
-          // SizedBox(width: 20.w),
+          SizedBox(width: 20.w),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
