@@ -26,3 +26,5 @@ class CallNumber extends ExchangeRateEvent {
 class LaunchTelegram extends ExchangeRateEvent {}
 
 class AboutUsViewed extends ExchangeRateEvent {}
+
+class ErrorLoaded extends ExchangeRateEvent {}

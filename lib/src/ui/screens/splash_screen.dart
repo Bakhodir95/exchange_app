@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:exchange_app/src/extentions/mediaquery.dart';
 import 'package:exchange_app/src/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen>
     _fadeAnimation =
         Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
       parent: _animationController,
-      curve: Curves.easeInOut, // Adjusted curve for smooth fading
+      curve: Curves.easeInOut,
     ));
 
     _slideAnimation = TweenSequence<Offset>([
@@ -70,9 +71,6 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    print(context.screenWidth); // Responsive width check
-    print(context.screenHeight); // Responsive height check
-
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -93,10 +91,9 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Welcome to\nSum Converter App!",
+                    context.tr("splash_screen"),
                     style: TextStyle(
-                      fontSize: context
-                          .responsiveFontSize(40), 
+                      fontSize: context.responsiveFontSize(40),
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                       letterSpacing: 1.2,
@@ -104,7 +101,7 @@ class _AnimatedSplashScreenState extends State<AnimatedSplashScreen>
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
-                    height: context.screenHeight / 20, 
+                    height: context.screenHeight / 20,
                   ),
                   SlideTransition(
                     position: _slideAnimation,

@@ -94,10 +94,10 @@ class HomeWidget extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 20.w),
+          // SizedBox(width: 20.w),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 "${context.tr("central_bank")} \n1 ${exchange.title} = ${(exchange.price)} ${context.tr("sum")}",

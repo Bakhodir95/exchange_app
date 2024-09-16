@@ -17,6 +17,9 @@ class ExchangeApiService {
         );
       }
       return exchanges;
+    } on DioException catch (e) {
+      print(e.error);
+      return [];
     } catch (e) {
       print('Error fetching exchange rates: $e');
       return [];

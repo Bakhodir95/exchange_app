@@ -46,6 +46,7 @@ dependencies:
   easy_localization: ^3.0.7
   carousel_slider: ^5.0.0
   font_awesome_flutter: ^10.7.0
+  connectivity_plus: ^6.0.5
   
 
 

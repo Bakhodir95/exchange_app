@@ -20,5 +20,6 @@
     "clear":"Tozalash",
     "sell_sum":"So`mni aylantirish",
     "currency_rate_app_description": "Bizning Valyuta kursi ilovamiz dunyo boʻylab turli valyutalar boʻyicha soʻnggi almashuv kurslarini tekshirishga yordam beradigan qulay vositadir. Sayohatni rejalashtiryapsizmi, onlayn xarid qilyapsizmi yoki pulingiz qanchalik qimmatligi bilan qiziqasizmi? boshqa mamlakatda, bu ilova Valyuta kursi ilovasi yordamida siz: Real vaqt kurslarini olish: Turli valyutalar uchun eng joriy almashuv kurslarini ko'rish: turli valyutalar o'rtasida osongina konvertatsiya qilish Bir necha marta bosish Sevimli valyutalarni saqlash: Tez kirish uchun tez-tez foydalanadigan valyutalarni kuzatib boring, shuning uchun siz kerakli ma'lumotlarni hech qanday qiyinchiliksiz topishingiz mumkin Xorijiy valyutalar bilan ishlaganda, barchasi smartfoningizdan!",
-    "central_bank":"Markaziy Bank "
+    "central_bank":"Markaziy Bank ",
+    "splash_screen":"Milliy valyuta ilovasiga\nXush kelibsiz!"
 }
