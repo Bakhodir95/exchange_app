@@ -137,7 +137,7 @@ class HomeWidget extends StatelessWidget {
 
   Widget mobileHomeContainer(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20.w),
+      padding: EdgeInsets.only(left: 10, right: 20),
       width: double.infinity,
       height: 300.h,
       decoration: const BoxDecoration(
