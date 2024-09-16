@@ -128,21 +128,24 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                         )
                       : const SizedBox(),
                   SizedBox(height: 15.h),
-                  Container(
-                    alignment: Alignment.center,
-                    width: screenWidth,
-                    padding: EdgeInsets.all(12.w),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.r),
-                      color: const Color.fromARGB(255, 28, 227, 35),
-                    ),
-                    child: Text(
-                      "1 ${widget.exchange.title} = ${(widget.exchange.price)} ${context.tr("sum")}",
-                      style: TextStyle(fontSize: 18.sp),
-                    ),
-                  ),
                   Column(
                     children: [
+                      Container(
+                        alignment: Alignment.center,
+                        width: screenWidth,
+                        padding: EdgeInsets.all(12.w),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.r),
+                          color: const Color.fromARGB(255, 28, 227, 35),
+                        ),
+                        child: Text(
+                          "1 ${widget.exchange.title} = ${(widget.exchange.price)} ${context.tr("sum")}",
+                          style: TextStyle(
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                       Row(
                         children: [
                           Expanded(
@@ -176,18 +179,23 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                           SizedBox(width: 15),
                           GestureDetector(
                             onTap: rateController.clear,
-                            child: Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.all(15.w),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.r),
-                                color: const Color.fromARGB(255, 28, 227, 35),
-                              ),
-                              child: Text(
-                                "clear".tr(),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: screenWidth < 601 ? 22.sp : 18),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.all(20.w),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.r),
+                                  color: const Color.fromARGB(255, 28, 227, 35),
+                                ),
+                                child: Text(
+                                  "clear".tr(),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          screenWidth < 601 ? 22.sp : 18.sp),
+                                ),
                               ),
                             ),
                           ),
@@ -239,7 +247,9 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                                   "buy".tr(),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: screenWidth < 601 ? 22.sp : 13),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          screenWidth < 601 ? 22.sp : 13.sp),
                                 ),
                               ),
                             ),
@@ -263,8 +273,9 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                                     "sell".tr(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
+                                        fontWeight: FontWeight.bold,
                                         fontSize:
-                                            screenWidth < 601 ? 22.sp : 13),
+                                            screenWidth < 601 ? 22.sp : 13.sp),
                                   ),
                                 ),
                               ),
@@ -288,8 +299,9 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                                     "sell_sum".tr(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
+                                        fontWeight: FontWeight.bold,
                                         fontSize:
-                                            screenWidth < 601 ? 18.sp : 13),
+                                            screenWidth < 601 ? 18.sp : 13.sp),
                                   ),
                                 ),
                               ),

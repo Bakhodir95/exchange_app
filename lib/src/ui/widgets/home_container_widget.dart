@@ -94,7 +94,7 @@ class HomeWidget extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 20.w), 
+          SizedBox(width: 20.w),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,29 +175,29 @@ class HomeWidget extends StatelessWidget {
               Text(
                 "${context.tr("central_bank")}\n1 ${exchange.title} = ${(exchange.price)} ${context.tr("sum")}",
                 style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w800,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w900,
                 ),
                 textAlign: TextAlign.center,
               ),
               Text(
                 "${"sell".tr()}: ${(exchange.sell ?? context.tr("no_data"))} ${context.tr("sum")}",
                 style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
               Text(
                 "${"buy".tr()}: ${(exchange.buy ?? context.tr("no_data"))} ${context.tr("sum")}",
                 style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
               Text(
                 "${"updated_at".tr()}:\n${exchange.date}",
                 style: TextStyle(
-                  fontSize: 16.sp,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.w500,
                 ),
                 textAlign: TextAlign.center,
