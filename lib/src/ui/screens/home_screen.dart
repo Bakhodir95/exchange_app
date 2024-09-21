@@ -116,7 +116,6 @@ Widget mobCarousel(BuildContext context, List<Exchange> filteredExchanges) {
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.white,
             borderRadius: BorderRadius.circular(10.r),
             boxShadow: const [
               BoxShadow(
@@ -153,7 +152,6 @@ Widget descCarousel(BuildContext context, List<Exchange> filteredExchanges) {
           width: double.infinity,
           height: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.white,
             borderRadius: BorderRadius.circular(10.r),
             boxShadow: const [
               BoxShadow(
