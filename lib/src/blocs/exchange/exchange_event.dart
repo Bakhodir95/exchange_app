@@ -23,7 +23,11 @@ class CallNumber extends ExchangeRateEvent {
   CallNumber({required this.callNumber});
 }
 
-class LaunchTelegram extends ExchangeRateEvent {}
+// ignore: must_be_immutable
+class LaunchTelegram extends ExchangeRateEvent {
+  String telegramLink;
+  LaunchTelegram({required this.telegramLink});
+}
 
 class AboutUsViewed extends ExchangeRateEvent {}
 

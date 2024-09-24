@@ -122,7 +122,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           ListTile(
             onTap: () async {
-              context.read<ExchangeRateBloc>().add(LaunchTelegram());
+              context.read<ExchangeRateBloc>().add(
+                  LaunchTelegram(telegramLink: "https://t.me/bakhodir1995"));
             },
             leading: const Icon(
               Icons.telegram,
