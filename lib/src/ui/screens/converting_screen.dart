@@ -136,7 +136,21 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                         padding: EdgeInsets.all(12.w),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.r),
-                          color: const Color.fromARGB(255, 28, 227, 35),
+                          gradient: Theme.of(context).brightness ==
+                                  Brightness.dark
+                              ? LinearGradient(
+                                  colors: [Colors.blue, Colors.blue.shade900],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                )
+                              : LinearGradient(
+                                  colors: [
+                                    Colors.green,
+                                    Colors.lightGreenAccent
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
                         ),
                         child: Text(
                           "1 ${widget.exchange.title} = ${(widget.exchange.price)} ${context.tr("sum")}",
@@ -186,7 +200,24 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                                 padding: EdgeInsets.all(20.w),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
-                                  color: const Color.fromARGB(255, 28, 227, 35),
+                                  gradient: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? LinearGradient(
+                                          colors: [
+                                            Colors.blue,
+                                            Colors.blue.shade900
+                                          ],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        )
+                                      : LinearGradient(
+                                          colors: [
+                                            Colors.green,
+                                            Colors.lightGreenAccent
+                                          ],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        ),
                                 ),
                                 child: Text(
                                   "clear".tr(),
@@ -208,7 +239,21 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                         // height: screenWidth < 601 ? 100.h : 150.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.r),
-                          color: const Color.fromARGB(255, 28, 227, 35),
+                          gradient: Theme.of(context).brightness ==
+                                  Brightness.dark
+                              ? LinearGradient(
+                                  colors: [Colors.blue, Colors.blue.shade900],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                )
+                              : LinearGradient(
+                                  colors: [
+                                    Colors.green,
+                                    Colors.lightGreenAccent
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
                         ),
                         child: Padding(
                             padding: EdgeInsets.all(20.w),
@@ -241,7 +286,24 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                                 padding: EdgeInsets.all(12.w),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10.r),
-                                  color: const Color.fromARGB(255, 28, 227, 35),
+                                  gradient: Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? LinearGradient(
+                                          colors: [
+                                            Colors.blue,
+                                            Colors.blue.shade900
+                                          ],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        )
+                                      : LinearGradient(
+                                          colors: [
+                                            Colors.green,
+                                            Colors.lightGreenAccent
+                                          ],
+                                          begin: Alignment.topLeft,
+                                          end: Alignment.bottomRight,
+                                        ),
                                 ),
                                 child: Text(
                                   "buy".tr(),
@@ -266,8 +328,24 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                                   padding: EdgeInsets.all(12.w),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.r),
-                                    color:
-                                        const Color.fromARGB(255, 28, 227, 35),
+                                    gradient: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? LinearGradient(
+                                            colors: [
+                                              Colors.blue,
+                                              Colors.blue.shade900
+                                            ],
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                          )
+                                        : LinearGradient(
+                                            colors: [
+                                              Colors.green,
+                                              Colors.lightGreenAccent
+                                            ],
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                          ),
                                   ),
                                   child: Text(
                                     "sell".tr(),
@@ -292,8 +370,24 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                                   alignment: Alignment.center,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.r),
-                                    color:
-                                        const Color.fromARGB(255, 28, 227, 35),
+                                    gradient: Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? LinearGradient(
+                                            colors: [
+                                              Colors.blue,
+                                              Colors.blue.shade900
+                                            ],
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                          )
+                                        : LinearGradient(
+                                            colors: [
+                                              Colors.green,
+                                              Colors.lightGreenAccent
+                                            ],
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                          ),
                                   ),
                                   child: Text(
                                     "sell_sum".tr(),

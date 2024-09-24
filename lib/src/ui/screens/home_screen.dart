@@ -10,6 +10,7 @@ import 'package:exchange_app/src/services/searchviewdelegate.dart';
 import 'package:exchange_app/src/ui/screens/settings_screen.dart';
 import 'package:exchange_app/src/ui/widgets/home_container_widget.dart';
 import 'package:exchange_app/src/ui/widgets/sizes.dart';
+import 'package:exchange_app/src/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil package
@@ -44,12 +45,18 @@ class _ExchangeRateScreenState extends State<ExchangeRateScreen> {
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(56.h),
           child: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.green, Colors.lightGreenAccent],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
+            decoration: BoxDecoration(
+              gradient: Theme.of(context).brightness == Brightness.dark
+                  ? LinearGradient(
+                      colors: AppColors.darkThemeColors,
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    )
+                  : LinearGradient(
+                      colors: AppColors.lighThemeColors,
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
             ),
             child: AppBar(
               actions: [

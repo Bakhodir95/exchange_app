@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:exchange_app/src/models/exchange.dart';
 import 'package:exchange_app/src/ui/screens/converting_screen.dart';
 import 'package:exchange_app/src/ui/widgets/sizes.dart';
+import 'package:exchange_app/src/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart'; // Import ScreenUtil
 
@@ -62,16 +63,30 @@ class HomeWidget extends StatelessWidget {
   }
 
   Widget desktopHomeContainer(BuildContext context) {
+    var brightness = Theme.of(context).brightness;
+
     return Container(
       padding: EdgeInsets.all(20.w),
       width: double.infinity.w,
       height: double.infinity.h,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.green, Colors.lightGreenAccent],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+      decoration: BoxDecoration(
+        gradient: brightness == Brightness.dark
+            ? LinearGradient(
+                colors: [
+                  AppColors.darkThemeColors.first,
+                  AppColors.darkThemeColors.last
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              )
+            : LinearGradient(
+                colors: [
+                  AppColors.lighThemeColors[0],
+                  AppColors.lighThemeColors[1],
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),
@@ -136,16 +151,23 @@ class HomeWidget extends StatelessWidget {
   }
 
   Widget mobileHomeContainer(BuildContext context) {
+    var brightness = Theme.of(context).brightness;
     return Container(
       padding: EdgeInsets.only(left: 10, right: 20),
       width: double.infinity,
       height: 300.h,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.green, Colors.lightGreenAccent],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+      decoration: BoxDecoration(
+        gradient: brightness == Brightness.dark
+            ? LinearGradient(
+                colors: AppColors.darkThemeColors,
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              )
+            : LinearGradient(
+                colors: AppColors.lighThemeColors,
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),

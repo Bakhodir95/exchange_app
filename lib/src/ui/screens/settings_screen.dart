@@ -6,6 +6,7 @@ import 'package:exchange_app/src/blocs/theme/theme_event.dart';
 import 'package:exchange_app/src/blocs/theme/theme_state.dart';
 import 'package:exchange_app/src/ui/screens/about_app_screen.dart';
 import 'package:exchange_app/src/ui/widgets/sizes.dart';
+import 'package:exchange_app/src/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,12 +27,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.green, Colors.lightGreenAccent],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
+            decoration: BoxDecoration(
+              gradient: Theme.of(context).brightness == Brightness.dark
+                  ? LinearGradient(
+                      colors: AppColors.darkThemeColors,
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    )
+                  : LinearGradient(
+                      colors: AppColors.lighThemeColors,
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
             ),
             child: Column(
               children: [
@@ -47,7 +54,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   style: TextStyle(
                     fontSize: screenWidth < 601 ? 24.sp : 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
                   ),
                 ),
               ],
@@ -60,8 +66,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               color: Color.fromARGB(255, 53, 175, 57),
             ),
             trailing: DropdownButton<String>(
-              borderRadius: BorderRadius.circular(10.r), // Responsive radius
-              dropdownColor: const Color.fromARGB(255, 84, 245, 89),
+              borderRadius: BorderRadius.circular(10.r),
+              dropdownColor: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.blue.shade900
+                  : AppColors.lighThemeColors[1],
               value: context.locale.languageCode,
               items: const [
                 DropdownMenuItem(
@@ -85,9 +93,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           ListTile(
-            leading: const Icon(
-              Icons.mode_night_outlined,
-              color: Colors.amber,
+            leading: BlocBuilder<ThemeBloc, ThemeState>(
+              builder: (context, state) {
+                final isDarkMode =
+                    (state as ThemeInitial).themeMode == ThemeMode.dark;
+
+                return Icon(
+                  isDarkMode ? Icons.nightlight_round : Icons.wb_sunny,
+                  color: isDarkMode ? Colors.amber : Colors.orange,
+                );
+              },
             ),
             title: Text(context.tr("night_mode")),
             trailing: BlocBuilder<ThemeBloc, ThemeState>(
