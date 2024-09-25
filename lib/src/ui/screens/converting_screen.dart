@@ -165,7 +165,8 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                           children: [
                             Expanded(
                               child: Padding(
-                                padding: const EdgeInsets.only(top: 10),
+                                padding:
+                                    const EdgeInsets.only(top: 20, bottom: 20),
                                 child: TextFormField(
                                   controller: rateController,
                                   keyboardType: TextInputType.number,
@@ -192,7 +193,7 @@ class _ConvertingScreenState extends State<ConvertingScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 15),
+                            SizedBox(width: 20),
                             GestureDetector(
                               onTap: rateController.clear,
                               child: Padding(
