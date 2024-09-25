@@ -12,7 +12,6 @@ class ExchangeRateBloc extends Bloc<ExchangeRateEvent, ExchangeRateState> {
   ExchangeRateBloc({required this.repository}) : super(ExchangeRateLoading()) {
     on<FetchExchangeRates>(_onFetchExchangeRates);
     on<ShareApp>(_launchURL);
-    on<LaunchTelegram>(_launchTelegram);
     on<AboutUsViewed>(_onViewAboutUs);
     on<CallNumber>(_onCallNumber);
   }
@@ -38,20 +37,6 @@ class ExchangeRateBloc extends Bloc<ExchangeRateEvent, ExchangeRateState> {
         throw 'Could not launch ${event.urlAddress}';
       }
     } catch (e) {}
-  }
-
-  Future<void> _launchTelegram(
-      LaunchTelegram event, Emitter<ExchangeRateState> emit) async {
-    try {
-      final Uri url = Uri.parse('https://t.me/bakhodir1995');
-      if (await canLaunchUrl(url)) {
-        await launchUrl(url);
-      } else {
-        throw 'Could not launch $url';
-      }
-    } catch (e) {
-      print(e);
-    }
   }
 
   void _onViewAboutUs(AboutUsViewed event, Emitter<ExchangeRateState> emit) {
