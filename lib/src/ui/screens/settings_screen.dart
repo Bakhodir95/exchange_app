@@ -123,7 +123,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
           ListTile(
             onTap: () async {
-              await launchUrl(Uri.parse('https://t.me/ibrohim_toxtasinov'));
+              await launchUrl(Uri.parse('https://t.me/bakhodir1995'));
             },
             leading: const Icon(
               Icons.telegram,
